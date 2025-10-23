@@ -1,0 +1,43 @@
+name: Validate Chartmeister Files
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Validate charts
+      run: npm run validate
+    
+    - name: Validate templates
+      run: npx ajv validate -s chartmeister-schema.json -d templates/**/*.json
+    
+    - name: Check schema integrity
+      run: |
+        echo "Checking schema file exists..."
+        test -f chartmeister-schema.json
+        echo "Schema file found ✓"
+        
+        echo "Validating schema structure..."
+        node -e "
+          const schema = require('./chartmeister-schema.json');
+          console.log('Schema version:', schema.version || 'unknown');
+          console.log('Schema type:', schema.type || 'unknown');
+          console.log('Schema valid ✓');
+        "

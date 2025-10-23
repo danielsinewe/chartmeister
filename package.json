@@ -1,0 +1,53 @@
+{
+  "name": "chartmeister",
+  "version": "2.0.11",
+  "description": "Open source library for the .chartmeister file format - a JSON-based standard for saving and loading chart data and visual configurations",
+  "main": "chartmeister-schema.json",
+  "files": [
+    "chartmeister-schema.json",
+    "README-schema.md",
+    "LICENSE",
+    "charts/**/*",
+    "templates/**/*"
+  ],
+  "keywords": [
+    "chart",
+    "waterfall",
+    "data-visualization",
+    "json-schema",
+    "chartmeister",
+    "chart-format",
+    "data-format"
+  ],
+  "author": "Daniel Sinewe <daniel@chartmeister.ai>",
+  "license": "MIT",
+  "homepage": "https://chartmeister.ai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danielsinewe/chartmeister.git"
+  },
+  "bugs": {
+    "url": "https://github.com/danielsinewe/chartmeister/issues"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/danielsinewe"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "validate": "ajv validate -s chartmeister-schema.json -d 'charts/**/*.json' --strict=false",
+    "validate:all": "ajv validate -s chartmeister-schema.json -d 'charts/**/*.json' --strict=false && ajv validate -s chartmeister-schema.json -d 'templates/**/*.json' --strict=false",
+    "test": "npm run validate:all",
+    "prepublishOnly": "npm run validate:all",
+    "setup": "bash scripts/setup-gh.sh",
+    "release": "node scripts/release.js",
+    "release:major": "node scripts/release.js major",
+    "release:minor": "node scripts/release.js minor",
+    "release:patch": "node scripts/release.js patch"
+  },
+  "devDependencies": {
+    "ajv-cli": "^5.0.0"
+  }
+}

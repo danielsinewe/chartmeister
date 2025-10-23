@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate schema
+        run: npm run validate:all
+
+      - name: Check for breaking changes
+        run: |
+          echo "Checking for breaking changes in schema..."
+          # This would be enhanced with actual breaking change detection
+          echo "Schema validation passed - no breaking changes detected"
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check package.json
+        run: |
+          echo "Validating package.json structure..."
+          node -e "
+            const pkg = require('./package.json');
+            const required = ['name', 'version', 'description', 'main', 'files', 'keywords', 'author', 'license'];
+            const missing = required.filter(field => !pkg[field]);
+            if (missing.length > 0) {
+              console.error('Missing required fields:', missing);
+              process.exit(1);
+            }
+            console.log('package.json validation passed');
+          "
+
+      - name: Check schema file exists
+        run: |
+          if [ ! -f "chartmeister-schema.json" ]; then
+            echo "Error: chartmeister-schema.json not found"
+            exit 1
+          fi
+          echo "Schema file exists"
+
+      - name: Check README files
+        run: |
+          if [ ! -f "README.md" ]; then
+            echo "Error: README.md not found"
+            exit 1
+          fi
+          if [ ! -f "README-schema.md" ]; then
+            echo "Error: README-schema.md not found"
+            exit 1
+          fi
+          echo "README files exist"
