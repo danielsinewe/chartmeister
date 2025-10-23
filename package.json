@@ -24,7 +24,7 @@
   "homepage": "https://chartmeister.ai",
   "repository": {
     "type": "git",
-    "url": "https://github.com/danielsinewe/chartmeister.git"
+    "url": "git+https://github.com/danielsinewe/chartmeister.git"
   },
   "bugs": {
     "url": "https://github.com/danielsinewe/chartmeister/issues"
