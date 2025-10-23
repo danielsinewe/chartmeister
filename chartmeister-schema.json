@@ -189,11 +189,6 @@
             "type": "boolean",
             "description": "Whether the element is anchored to the baseline"
           }
-                  }
-                }
-              }
-            }
-          }
         }
       }
     },
@@ -1033,7 +1028,8 @@
           }
         }
       }
-    },
+    }
+  },
     "files": {
       "type": "object",
       "description": "Data for chart image elements",
@@ -1041,4 +1037,6 @@
     }
   },
   "additionalProperties": false
+  }
+  }
 }
