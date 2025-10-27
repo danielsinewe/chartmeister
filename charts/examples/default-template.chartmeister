@@ -1,0 +1,281 @@
+{
+  "type": "chartmeister",
+  "version": 3,
+  "source": "chartmeister-app",
+  "lastModified": "2025-10-23T21:13:30Z",
+  "elements": [
+    {
+      "id": "1",
+      "type": "bar",
+      "x": 0,
+      "y": 0,
+      "width": 40,
+      "height": 200,
+      "strokeColor": "transparent",
+      "backgroundColor": "#2f5f98",
+      "strokeWidth": 0,
+      "locked": false,
+      "chartData": {
+        "label": "Start",
+        "value": 100,
+        "type": "start",
+        "cumulative": 100,
+        "editable": true,
+        "showValueLabel": true,
+        "showCategoryLabel": true,
+        "color": "#2f5f98"
+      }
+    },
+    {
+      "id": "2",
+      "type": "bar",
+      "x": 50,
+      "y": 0,
+      "width": 40,
+      "height": 50,
+      "strokeColor": "transparent",
+      "backgroundColor": "#2d8bba",
+      "strokeWidth": 0,
+      "locked": false,
+      "chartData": {
+        "label": "Increase",
+        "value": 25,
+        "type": "positive",
+        "cumulative": 125,
+        "editable": true,
+        "showValueLabel": true,
+        "showCategoryLabel": true,
+        "color": "#2d8bba"
+      }
+    },
+    {
+      "id": "3",
+      "type": "bar",
+      "x": 100,
+      "y": 0,
+      "width": 40,
+      "height": 30,
+      "strokeColor": "transparent",
+      "backgroundColor": "#41b8d5",
+      "strokeWidth": 0,
+      "locked": false,
+      "chartData": {
+        "label": "Decrease",
+        "value": -15,
+        "type": "negative",
+        "cumulative": 110,
+        "editable": true,
+        "showValueLabel": true,
+        "showCategoryLabel": true,
+        "color": "#41b8d5"
+      }
+    },
+    {
+      "id": "4",
+      "type": "bar",
+      "x": 150,
+      "y": 0,
+      "width": 40,
+      "height": 220,
+      "strokeColor": "transparent",
+      "backgroundColor": "#6ce5e8",
+      "strokeWidth": 0,
+      "locked": true,
+      "chartData": {
+        "label": "End",
+        "value": 110,
+        "type": "total",
+        "cumulative": 110,
+        "editable": false,
+        "showValueLabel": true,
+        "showCategoryLabel": true,
+        "color": "#6ce5e8",
+        "anchorToBaseline": false
+      }
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "currentItemStrokeColor": "#000000",
+    "currentItemBackgroundColor": "#ffffff",
+    "currentItemFillStyle": "hachure",
+    "currentItemStrokeWidth": 1,
+    "currentItemStrokeStyle": "solid",
+    "currentItemRoughness": 1,
+    "currentItemOpacity": 100,
+    "currentItemFontFamily": 1,
+    "currentItemFontSize": 16,
+    "currentItemTextAlign": "left",
+    "currentItemStartArrowhead": null,
+    "currentItemEndArrowhead": null,
+    "scrollX": 0,
+    "scrollY": 0,
+    "zoom": {
+      "value": 1
+    },
+    "gridSize": null,
+    "viewModeEnabled": false,
+    "theme": "light",
+    "selectedElementIds": {},
+    "selectedGroupIds": {},
+    "editingGroupId": null,
+    "editingLinearElement": null,
+    "selectedElements": {
+      "elements": [],
+      "appState": {}
+    },
+    "chartState": {
+      "selectedBar": null,
+      "selectedConnector": null,
+      "selectedSegment": null,
+      "selectedPercentAnnotation": null,
+      "hoveredElement": null,
+      "editingLabel": null,
+      "editingValue": null,
+      "editingSegmentValue": null,
+      "isDragging": false,
+      "draggingSegment": null,
+      "showLockIcon": null,
+      "guides": [],
+      "selectedGuideId": null,
+      "contextMenu": {
+        "visible": false,
+        "x": 0,
+        "y": 0
+      }
+    },
+    "chartVisual": {
+      "title": "Chartmeister",
+      "subtitle": "Showing start, changes, and total",
+      "showTitle": true,
+      "showSubtitle": true,
+      "showLegend": true,
+      "showYAxis": true,
+      "showYAxisName": true,
+      "showYAxisLine": true,
+      "showYAxisTicks": true,
+      "showYAxisLabels": true,
+      "showXAxis": true,
+      "showXAxisName": true,
+      "showXAxisLine": true,
+      "showXAxisTicks": true,
+      "showXAxisLabels": true,
+        "showBackgroundGrid": false,
+        "hiddenLegendColors": [],
+        "legendEntries": [
+          {
+            "color": "#2f5f98",
+            "label": "Start",
+            "shape": "square"
+          },
+          {
+            "color": "#2d8bba",
+            "label": "Increase",
+            "shape": "square"
+          },
+          {
+            "color": "#41b8d5",
+            "label": "Decrease",
+            "shape": "square"
+          },
+          {
+            "color": "#6ce5e8",
+            "label": "End",
+            "shape": "square"
+          }
+        ],
+        "titleAlignment": "center",
+      "subtitleAlignment": "center",
+      "legendAlignment": "center",
+      "legendLayout": "horizontal",
+      "legendRows": 1,
+      "legendColumns": 4,
+      "xAxisLabelRotation": -45,
+      "autoRotationEnabled": true,
+      "dynamicPositioningEnabled": true,
+      "titleVerticalPosition": 0,
+      "subtitleVerticalPosition": 0,
+      "legendVerticalPosition": 0,
+      "chartBorder": {
+        "color": "#000000",
+        "width": 0,
+        "type": "solid"
+      },
+      "cornerRadius": 0,
+      "topCornerRadius": 0,
+      "bottomCornerRadius": 0,
+      "separateCornerRadius": false,
+      "connectors": {
+        "visible": true,
+        "strokeWidth": 2,
+        "strokeDasharray": "none",
+        "color": "#111827"
+      },
+      "percentAnnotations": {
+        "visible": false,
+        "color": "#111827",
+        "fontSize": 12,
+        "fontWeight": 500
+      },
+      "valueLabels": {
+        "visible": true,
+        "position": "top",
+        "color": "#111827",
+        "fontSize": 16,
+        "fontWeight": 500,
+        "offset": 10
+      },
+      "categoryLabels": {
+        "visible": true,
+        "position": "bottom",
+        "color": "#111827",
+        "fontSize": 14,
+        "fontWeight": 400,
+        "offset": 10
+      },
+      "yAxis": {
+        "visible": true,
+        "minValue": 0,
+        "maxValue": 125,
+        "tickInterval": 25,
+        "color": "#6B7280",
+        "fontSize": 12,
+        "fontWeight": 400,
+        "tickLength": 5,
+        "gridLines": false
+      },
+      "xAxis": {
+        "labelRotation": -45
+      },
+      "titleSize": {
+        "width": 870,
+        "height": 40
+      },
+      "subtitleSize": {
+        "width": 870,
+        "height": 30
+      },
+      "legendSize": {
+        "width": 870,
+        "height": 60
+      },
+      "layout": {
+        "barWidth": 35,
+        "barSpacing": 10,
+        "chartWidth": 350,
+        "chartHeight": 350,
+        "marginTop": 20,
+        "marginBottom": 40,
+        "marginLeft": 40,
+        "marginRight": 20
+      },
+      "cornerRadius": 0,
+      "chartBorder": {
+        "color": "transparent",
+        "width": 0,
+        "type": "solid"
+      }
+    }
+  },
+  "files": {}
+}
