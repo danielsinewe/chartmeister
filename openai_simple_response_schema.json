@@ -23,7 +23,7 @@
             "type": "array",
             "items": {
               "type": "object",
-              "required": ["id", "type"],
+              "required": ["id", "type", "x", "y", "width", "height", "strokeColor", "backgroundColor", "strokeWidth", "locked", "chartData"],
               "properties": {
                 "id": {
                   "type": "string",

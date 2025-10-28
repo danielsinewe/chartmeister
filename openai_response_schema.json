@@ -170,7 +170,16 @@
               },
               "required": [
                 "id",
-                "type"
+                "type",
+                "x",
+                "y",
+                "width",
+                "height",
+                "strokeColor",
+                "backgroundColor",
+                "strokeWidth",
+                "locked",
+                "chartData"
               ],
               "additionalProperties": false
             },
