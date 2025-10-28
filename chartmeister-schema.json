@@ -3,7 +3,7 @@
   "$id": "https://github.com/danielsinewe/chartmeister/chartmeister-schema.json",
   "name": "chartmeister-schema",
   "title": "Chartmeister File Format Schema",
-  "description": "JSON schema for .chartmeister files - a format for saving and loading chart data, similar to Excalidraw's .excalidraw format. Version 3 includes fixes for anchorToBaseline property handling in total bars.",
+  "description": "JSON schema for .chartmeister files - a format for saving and loading chart data and visual configurations. Version 6 includes enhanced schema validation, examples, and comprehensive documentation.",
   "type": "object",
   "required": [
     "type",
