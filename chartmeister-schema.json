@@ -1,68 +1,103 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://github.com/danielsinewe/chartmeister/chartmeister-schema.json",
+  "name": "Chartmeister Schema",
   "title": "Chartmeister File Format Schema",
-  "description": "JSON schema for .chartmeister files - a format for saving and loading chart data, similar to Excalidraw's .excalidraw format. Version 3 includes fixes for anchorToBaseline property handling in total bars.",
-  "version": 3,
+  "description": "JSON schema for .chartmeister files - a format for saving and loading chart data, similar to Excalidraw's .excalidraw format. Version 6 adds font size overrides for value labels, category labels, axis labels, and legend labels for typography harmonization.",
+  "version": 6,
   "type": "object",
   "required": ["type", "version", "source", "elements", "appState", "files"],
   "properties": {
+    "about": {
+      "type": "object",
+      "description": "Optional metadata about this chart file for provenance and sharing",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "authors": { "type": "array", "items": { "type": "string" } },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "license": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "modifiedAt": { "type": "string", "format": "date-time" },
+        "generator": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "version": { "type": "string" },
+            "url": { "type": "string" }
+          }
+        },
+        "sourceAssets": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": true
+    },
     "type": {
       "type": "string",
       "const": "chartmeister",
-      "description": "The type of the Chartmeister schema"
+      "description": "The type of the Chartmeister schema",
+      "examples": ["chartmeister"]
     },
     "version": {
       "type": "integer",
       "minimum": 1,
-      "description": "The version of the Chartmeister schema. Version 3 includes fixes for anchorToBaseline property handling in total bars."
+      "description": "The version of the Chartmeister schema. Version 6 adds font size overrides (valueLabelFontSize, categoryLabelFontSize, axisLabelFontSize, legendLabelFontSize) for typography harmonization. Version 5 added metadata and legend typography. Version 4 adds valueLabelDockMode and clarifies anchored totals.",
+      "examples": [6]
     },
     "source": {
       "type": "string",
       "const": "chartmeister-app",
-      "description": "The source URL of the Chartmeister application"
+      "description": "The source URL of the Chartmeister application",
+      "examples": ["chartmeister-app"]
     },
     "elements": {
       "type": "array",
-      "description": "An array of objects representing chart elements on canvas",
+      "description": "An array of objects representing chart elements on canvas. Each element can be a bar, connector, annotation, title, subtitle, or legend with specific positioning and styling properties.",
       "items": {
         "type": "object",
         "required": ["id", "type"],
         "properties": {
           "id": {
             "type": "string",
-            "description": "Unique identifier for the element"
+            "description": "Unique identifier for the element. Must be unique across all elements in the chart. Typically generated as a UUID or timestamp-based string.",
+            "pattern": "^[a-zA-Z0-9_-]+$"
           },
           "type": {
             "type": "string",
             "enum": ["bar", "connector", "annotation", "title", "subtitle", "legend"],
-            "description": "The type of chart element"
+            "description": "The type of chart element",
+            "examples": ["bar", "title", "legend"]
           },
           "x": {
             "type": "number",
-            "description": "X coordinate of the element"
+            "description": "X coordinate of the element in pixels, relative to the chart canvas origin (top-left corner)",
+            "minimum": 0
           },
           "y": {
             "type": "number",
-            "description": "Y coordinate of the element"
+            "description": "Y coordinate of the element in pixels, relative to the chart canvas origin (top-left corner)",
+            "minimum": 0
           },
           "width": {
             "type": "number",
-            "description": "Width of the element"
+            "description": "Width of the element in pixels",
+            "minimum": 0
           },
           "height": {
             "type": "number",
-            "description": "Height of the element"
+            "description": "Height of the element in pixels",
+            "minimum": 0
           },
           "strokeColor": {
             "type": "string",
             "pattern": "^#[0-9A-Fa-f]{6}$",
-            "description": "Stroke color in hex format"
+            "description": "Stroke color in hex format",
+            "examples": ["#000000", "#FF5733", "#3498DB"]
           },
           "backgroundColor": {
             "type": "string",
             "pattern": "^#[0-9A-Fa-f]{6}$",
-            "description": "Background color in hex format"
+            "description": "Background color in hex format",
+            "examples": ["#FFFFFF", "#F8F9FA", "#E9ECEF"]
           },
           "strokeWidth": {
             "type": "number",
@@ -85,7 +120,7 @@
           },
           "chartData": {
             "type": "object",
-            "description": "Chart-specific data for the element",
+            "description": "Chart-specific data for the element. Contains the actual data values, labels, and visual properties that define how the element appears and behaves in the chart.",
             "properties": {
               "label": {
                 "type": "string",
@@ -93,16 +128,19 @@
               },
               "value": {
                 "type": "number",
-                "description": "Value of the chart element"
+                "description": "Value of the chart element",
+                "minimum": 0
               },
               "type": {
                 "type": "string",
                 "enum": ["total", "change", "start", "positive", "negative"],
-                "description": "Type of chart element"
+                "description": "Type of chart element",
+                "examples": ["positive", "negative", "total"]
               },
               "cumulative": {
                 "type": "number",
-                "description": "Cumulative value"
+                "description": "Cumulative value",
+                "minimum": 0
               },
               "editable": {
                 "type": "boolean",
@@ -179,7 +217,12 @@
               "valueLabelOffsetY": {
                 "type": "number",
                 "description": "Y offset for value label"
-              }
+              },
+                    "valueLabelDockMode": {
+                      "type": "string",
+                      "enum": ["free", "center", "above"],
+                      "description": "Preferred snap placement for the segment value label"
+                    }
             }
           },
           "computeTotal": {
@@ -195,7 +238,7 @@
     },
     "appState": {
       "type": "object",
-      "description": "Additional application state/configuration",
+      "description": "Additional application state and configuration. Contains UI state, visual settings, chart configuration, and user preferences that control how the chart is displayed and behaves.",
       "properties": {
         "viewBackgroundColor": {
           "type": "string",
@@ -245,8 +288,9 @@
         },
         "currentItemFontSize": {
           "type": "number",
-          "minimum": 1,
-          "description": "Current item font size"
+          "minimum": 8,
+          "maximum": 72,
+          "description": "Current item font size in pixels"
         },
         "currentItemTextAlign": {
           "type": "string",
@@ -290,9 +334,10 @@
               "type": "number",
               "minimum": 0.1,
               "maximum": 5,
-              "description": "Zoom level"
+              "description": "Zoom level (0.1 = 10%, 1.0 = 100%, 5.0 = 500%)"
             }
-          }
+          },
+          "required": ["value"]
         },
         "gridSize": {
           "oneOf": [
@@ -312,7 +357,8 @@
         "theme": {
           "type": "string",
           "enum": ["light", "dark"],
-          "description": "Theme of the application"
+          "description": "Theme of the application",
+          "examples": ["light", "dark"]
         },
         "selectedElementIds": {
           "type": "object",
@@ -533,7 +579,7 @@
         },
         "chartVisual": {
           "type": "object",
-          "description": "Chart visual configuration",
+          "description": "Chart visual configuration and styling. Controls the appearance of chart elements including titles, legends, axes, colors, fonts, and layout properties.",
           "properties": {
             "title": {
               "type": "string",
@@ -673,7 +719,8 @@
             "titleAlignment": {
               "type": "string",
               "enum": ["center", "justify", "start", "end"],
-              "description": "Title alignment"
+              "description": "Title alignment",
+              "examples": ["center", "start"]
             },
             "subtitleAlignment": {
               "type": "string",
@@ -690,10 +737,50 @@
               "enum": ["horizontal", "vertical"],
               "description": "Legend layout direction"
             },
+            "legendRows": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Preferred legend rows (advisory)"
+            },
+            "legendColumns": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Preferred legend columns (advisory)"
+            },
             "legendMaxWidth": {
               "type": "number",
               "minimum": 0,
               "description": "Maximum width of the legend before wrapping to next row"
+            },
+            "legendLabelFontSize": {
+              "type": "number",
+              "minimum": 1,
+              "description": "Font size for legend labels"
+            },
+            "valueLabelFontSize": {
+              "type": "number",
+              "minimum": 1,
+              "description": "Font size override for value labels on bars (overrides responsive default)"
+            },
+            "categoryLabelFontSize": {
+              "type": "number",
+              "minimum": 1,
+              "description": "Font size override for category (X-axis) labels (overrides responsive default)"
+            },
+            "axisLabelFontSize": {
+              "type": "number",
+              "minimum": 1,
+              "description": "Font size override for axis tick labels (overrides responsive default)"
+            },
+            "yAxisTickFontFamily": {
+              "type": "string",
+              "description": "Font family for Y-axis tick labels (e.g. 'SFMono-Regular', 'Menlo', 'ui-monospace')"
+            },
+            "yAxisTickFontWeight": {
+              "type": "number",
+              "minimum": 100,
+              "maximum": 900,
+              "description": "Font weight for Y-axis tick labels (e.g. 400, 500)"
             },
             "legendPosition": {
               "type": "object",
@@ -858,6 +945,10 @@
                   "pattern": "^#[0-9A-Fa-f]{6}$",
                   "description": "Value label color"
                 },
+                "fontFamily": {
+                  "type": "string",
+                  "description": "Value label font family"
+                },
                 "fontSize": {
                   "type": "number",
                   "minimum": 1,
@@ -876,7 +967,8 @@
                 "format": {
                   "type": "string",
                   "enum": ["%", "$", "€", "£", "¥", "number"],
-                  "description": "Value label format"
+                  "description": "Value label format",
+                  "examples": ["$", "%", "number"]
                 }
               },
               "description": "Value label configuration"
@@ -897,6 +989,10 @@
                   "type": "string",
                   "pattern": "^#[0-9A-Fa-f]{6}$",
                   "description": "Category label color"
+                },
+                "fontFamily": {
+                  "type": "string",
+                  "description": "Category label font family"
                 },
                 "fontSize": {
                   "type": "number",
@@ -940,6 +1036,10 @@
                   "type": "string",
                   "pattern": "^#[0-9A-Fa-f]{6}$",
                   "description": "Y-axis color"
+                },
+                "fontFamily": {
+                  "type": "string",
+                  "description": "Y-axis tick/title font family"
                 },
                 "fontSize": {
                   "type": "number",
@@ -986,22 +1086,26 @@
                 "barWidth": {
                   "type": "number",
                   "minimum": 1,
-                  "description": "Bar width"
+                  "maximum": 200,
+                  "description": "Bar width in pixels"
                 },
                 "barSpacing": {
                   "type": "number",
                   "minimum": 0,
-                  "description": "Bar spacing"
+                  "maximum": 100,
+                  "description": "Bar spacing in pixels"
                 },
                 "chartWidth": {
                   "type": "number",
                   "minimum": 100,
-                  "description": "Chart width"
+                  "maximum": 4000,
+                  "description": "Chart width in pixels"
                 },
                 "chartHeight": {
                   "type": "number",
                   "minimum": 100,
-                  "description": "Chart height"
+                  "maximum": 4000,
+                  "description": "Chart height in pixels"
                 },
                 "marginTop": {
                   "type": "number",
@@ -1038,6 +1142,4 @@
     }
   },
   "additionalProperties": false
-  }
-  }
 }
