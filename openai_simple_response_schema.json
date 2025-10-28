@@ -112,6 +112,17 @@
                       }
                     }
                   },
+                  "required": [
+                    "label",
+                    "value",
+                    "type",
+                    "cumulative",
+                    "editable",
+                    "showValueLabel",
+                    "showCategoryLabel",
+                    "color",
+                    "segments"
+                  ],
                   "additionalProperties": false
                 }
               },

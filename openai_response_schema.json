@@ -161,7 +161,8 @@
                     "editable",
                     "showValueLabel",
                     "showCategoryLabel",
-                    "color"
+                    "color",
+                    "segments"
                   ],
                   "additionalProperties": false,
                   "description": "Optional chart data for an element."
