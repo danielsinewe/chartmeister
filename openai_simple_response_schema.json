@@ -23,7 +23,7 @@
             "type": "array",
             "items": {
               "type": "object",
-              "required": ["id", "type", "x", "y", "width", "height", "chartData"],
+              "required": ["id", "type"],
               "properties": {
                 "id": {
                   "type": "string",
@@ -64,7 +64,6 @@
                 },
                 "chartData": {
                   "type": "object",
-                  "required": ["label", "value", "type"],
                   "properties": {
                     "label": {
                       "type": "string"
@@ -120,7 +119,6 @@
           },
           "appState": {
             "type": "object",
-            "required": ["chartVisual"],
             "properties": {
               "viewBackgroundColor": {
                 "type": "string"
@@ -131,7 +129,6 @@
               },
               "chartVisual": {
                 "type": "object",
-                "required": ["title"],
                 "properties": {
                   "title": {
                     "type": "string"
