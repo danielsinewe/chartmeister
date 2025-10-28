@@ -149,8 +149,7 @@
                         },
                         "required": [
                           "label",
-                          "value",
-                          "color"
+                          "value"
                         ],
                         "additionalProperties": false
                       },
@@ -165,8 +164,7 @@
                     "editable",
                     "showValueLabel",
                     "showCategoryLabel",
-                    "color",
-                    "segments"
+                    "color"
                   ],
                   "additionalProperties": false,
                   "description": "Optional chart data for an element."
@@ -174,16 +172,7 @@
               },
               "required": [
                 "id",
-                "type",
-                "x",
-                "y",
-                "width",
-                "height",
-                "strokeColor",
-                "backgroundColor",
-                "strokeWidth",
-                "locked",
-                "chartData"
+                "type"
               ],
               "additionalProperties": false
             },
@@ -364,26 +353,13 @@
                   }
                 },
                 "required": [
-                  "title",
-                  "subtitle",
-                  "showTitle",
-                  "showSubtitle",
-                  "showLegend",
-                  "showYAxis",
-                  "showXAxis",
-                  "titleAlignment",
-                  "legendLayout",
-                  "valueLabels",
-                  "yAxis",
-                  "layout"
+                  "title"
                 ],
                 "additionalProperties": false,
                 "description": "Visual settings for the chart."
               }
             },
             "required": [
-              "viewBackgroundColor",
-              "theme",
               "chartVisual"
             ],
             "additionalProperties": false,
