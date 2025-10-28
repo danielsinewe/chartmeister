@@ -134,6 +134,10 @@
                       "items": {
                         "type": "object",
                         "properties": {
+                          "id": {
+                            "type": "string",
+                            "description": "Unique segment identifier."
+                          },
                           "label": {
                             "type": "string",
                             "description": "Segment label."
@@ -147,7 +151,7 @@
                             "description": "Segment color."
                           }
                         },
-                        "required": ["label", "value", "color"],
+                        "required": ["id", "label", "value", "color"],
                         "additionalProperties": false
                       },
                       "description": "Array of data segments."
