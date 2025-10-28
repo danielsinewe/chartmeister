@@ -3,7 +3,7 @@
   "$id": "https://github.com/danielsinewe/chartmeister/chartmeister-schema.json",
   "name": "chartmeister-schema",
   "title": "Chartmeister File Format Schema",
-  "description": "JSON schema for .chartmeister files - optimized for OpenAI structured outputs. Supports waterfall charts, grouped bars, and complete visual configurations.",
+  "description": "Comprehensive JSON schema for .chartmeister files - supports full app functionality and AI generation. Includes all chart types, visual configurations, and app state properties.",
   "type": "object",
   "required": ["type", "version", "source", "elements", "appState", "files"],
   "properties": {
@@ -65,12 +65,10 @@
           },
           "strokeColor": {
             "type": "string",
-            "pattern": "^#[0-9A-Fa-f]{6}$",
-            "description": "Border color in hex format"
+            "description": "Border color in hex format or 'transparent'"
           },
           "backgroundColor": {
             "type": "string",
-            "pattern": "^#[0-9A-Fa-f]{6}$",
             "description": "Background color in hex format"
           },
           "strokeWidth": {
@@ -119,7 +117,6 @@
               },
               "color": {
                 "type": "string",
-                "pattern": "^#[0-9A-Fa-f]{6}$",
                 "description": "Element color"
               },
               "segments": {
@@ -138,7 +135,6 @@
                     },
                     "color": {
                       "type": "string",
-                      "pattern": "^#[0-9A-Fa-f]{6}$",
                       "description": "Segment color"
                     }
                   }
@@ -155,13 +151,252 @@
       "properties": {
         "viewBackgroundColor": {
           "type": "string",
-          "pattern": "^#[0-9A-Fa-f]{6}$",
           "description": "Background color of the view"
+        },
+        "currentItemStrokeColor": {
+          "type": "string",
+          "description": "Current item stroke color"
+        },
+        "currentItemBackgroundColor": {
+          "type": "string",
+          "description": "Current item background color"
+        },
+        "currentItemFillStyle": {
+          "type": "string",
+          "enum": ["hachure", "solid", "zigzag", "cross-hatch", "dots", "dashed", "zigzag-line"],
+          "description": "Current item fill style"
+        },
+        "currentItemStrokeWidth": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Current item stroke width"
+        },
+        "currentItemStrokeStyle": {
+          "type": "string",
+          "enum": ["solid", "dashed", "dotted"],
+          "description": "Current item stroke style"
+        },
+        "currentItemRoughness": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "Current item roughness"
+        },
+        "currentItemOpacity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Current item opacity"
+        },
+        "currentItemFontFamily": {
+          "type": "integer",
+          "description": "Current item font family"
+        },
+        "currentItemFontSize": {
+          "type": "number",
+          "minimum": 8,
+          "maximum": 72,
+          "description": "Current item font size in pixels"
+        },
+        "currentItemTextAlign": {
+          "type": "string",
+          "enum": ["left", "center", "right"],
+          "description": "Current item text alignment"
+        },
+        "currentItemStartArrowhead": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "null"}
+          ],
+          "description": "Current item start arrowhead"
+        },
+        "currentItemEndArrowhead": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "null"}
+          ],
+          "description": "Current item end arrowhead"
+        },
+        "scrollX": {
+          "type": "number",
+          "description": "X scroll position"
+        },
+        "scrollY": {
+          "type": "number",
+          "description": "Y scroll position"
+        },
+        "zoom": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number",
+              "minimum": 0.1,
+              "maximum": 5,
+              "description": "Zoom level"
+            }
+          },
+          "required": ["value"]
+        },
+        "gridSize": {
+          "oneOf": [
+            {"type": "number"},
+            {"type": "null"}
+          ],
+          "description": "Grid size"
+        },
+        "viewModeEnabled": {
+          "type": "boolean",
+          "description": "Whether view mode is enabled"
         },
         "theme": {
           "type": "string",
           "enum": ["light", "dark"],
           "description": "Application theme"
+        },
+        "selectedElementIds": {
+          "type": "object",
+          "additionalProperties": {"type": "boolean"},
+          "description": "Selected element IDs"
+        },
+        "selectedGroupIds": {
+          "type": "object",
+          "additionalProperties": {"type": "boolean"},
+          "description": "Selected group IDs"
+        },
+        "editingGroupId": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "null"}
+          ],
+          "description": "Currently editing group ID"
+        },
+        "editingLinearElement": {
+          "oneOf": [
+            {"type": "object"},
+            {"type": "null"}
+          ],
+          "description": "Currently editing linear element"
+        },
+        "selectedElements": {
+          "type": "object",
+          "properties": {
+            "elements": {
+              "type": "array",
+              "description": "Selected elements"
+            },
+            "appState": {
+              "type": "object",
+              "description": "App state for selected elements"
+            }
+          }
+        },
+        "chartState": {
+          "type": "object",
+          "description": "Chart-specific state",
+          "properties": {
+            "selectedBar": {
+              "oneOf": [
+                {"type": "string"},
+                {"type": "null"}
+              ],
+              "description": "Selected bar ID"
+            },
+            "selectedConnector": {
+              "oneOf": [
+                {"type": "number"},
+                {"type": "null"}
+              ],
+              "description": "Selected connector index"
+            },
+            "selectedSegment": {
+              "oneOf": [
+                {"type": "string"},
+                {"type": "null"}
+              ],
+              "description": "Selected segment ID"
+            },
+            "selectedPercentAnnotation": {
+              "oneOf": [
+                {"type": "number"},
+                {"type": "null"}
+              ],
+              "description": "Selected percent annotation index"
+            },
+            "hoveredElement": {
+              "oneOf": [
+                {"type": "string"},
+                {"type": "null"}
+              ],
+              "description": "Hovered element ID"
+            },
+            "editingLabel": {
+              "oneOf": [
+                {"type": "string"},
+                {"type": "null"}
+              ],
+              "description": "Currently editing label"
+            },
+            "editingValue": {
+              "oneOf": [
+                {"type": "string"},
+                {"type": "null"}
+              ],
+              "description": "Currently editing value"
+            },
+            "editingSegmentValue": {
+              "oneOf": [
+                {"type": "string"},
+                {"type": "null"}
+              ],
+              "description": "Currently editing segment value"
+            },
+            "isDragging": {
+              "oneOf": [
+                {"type": "boolean"},
+                {"type": "null"}
+              ],
+              "description": "Whether currently dragging"
+            },
+            "draggingSegment": {
+              "oneOf": [
+                {"type": "string"},
+                {"type": "null"}
+              ],
+              "description": "Currently dragging segment ID"
+            },
+            "showLockIcon": {
+              "oneOf": [
+                {"type": "string"},
+                {"type": "null"}
+              ],
+              "description": "Show lock icon for element"
+            },
+            "guides": {
+              "type": "array",
+              "description": "Guide lines"
+            },
+            "selectedGuideId": {
+              "oneOf": [
+                {"type": "string"},
+                {"type": "null"}
+              ],
+              "description": "Selected guide ID"
+            },
+            "contextMenu": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "visible": {"type": "boolean"},
+                    "x": {"type": "number"},
+                    "y": {"type": "number"}
+                  }
+                },
+                {"type": "null"}
+              ],
+              "description": "Context menu state"
+            }
+          }
         },
         "chartVisual": {
           "type": "object",
@@ -191,97 +426,305 @@
               "type": "boolean",
               "description": "Whether to show the Y-axis"
             },
+            "showYAxisName": {
+              "type": "boolean",
+              "description": "Whether to show Y-axis name"
+            },
+            "showYAxisLine": {
+              "type": "boolean",
+              "description": "Whether to show Y-axis line"
+            },
+            "showYAxisTicks": {
+              "type": "boolean",
+              "description": "Whether to show Y-axis ticks"
+            },
+            "showYAxisLabels": {
+              "type": "boolean",
+              "description": "Whether to show Y-axis labels"
+            },
             "showXAxis": {
               "type": "boolean",
               "description": "Whether to show the X-axis"
             },
+            "showXAxisName": {
+              "type": "boolean",
+              "description": "Whether to show X-axis name"
+            },
+            "showXAxisLine": {
+              "type": "boolean",
+              "description": "Whether to show X-axis line"
+            },
+            "showXAxisTicks": {
+              "type": "boolean",
+              "description": "Whether to show X-axis ticks"
+            },
+            "showXAxisLabels": {
+              "type": "boolean",
+              "description": "Whether to show X-axis labels"
+            },
+            "showBackgroundGrid": {
+              "type": "boolean",
+              "description": "Whether to show background grid"
+            },
+            "hiddenLegendColors": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Hidden legend colors"
+            },
+            "legendEntries": {
+              "type": "array",
+              "description": "Legend entries",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "color": {"type": "string"},
+                  "label": {"type": "string"},
+                  "shape": {
+                    "type": "string",
+                    "enum": ["square", "circle", "diamond", "triangle"]
+                  }
+                }
+              }
+            },
+            "legendIconShapes": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "enum": ["square", "circle", "diamond", "triangle"]
+              },
+              "description": "Legend icon shapes mapping"
+            },
             "titleAlignment": {
               "type": "string",
-              "enum": ["center", "justify", "start", "end"],
+              "enum": ["left", "center", "right", "justify"],
               "description": "Title alignment"
+            },
+            "subtitleAlignment": {
+              "type": "string",
+              "enum": ["left", "center", "right", "justify"],
+              "description": "Subtitle alignment"
+            },
+            "legendAlignment": {
+              "type": "string",
+              "enum": ["left", "center", "right", "justify"],
+              "description": "Legend alignment"
             },
             "legendLayout": {
               "type": "string",
               "enum": ["horizontal", "vertical"],
               "description": "Legend layout direction"
             },
+            "legendRows": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Preferred legend rows"
+            },
+            "legendColumns": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Preferred legend columns"
+            },
+            "legendMaxWidth": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Maximum width of the legend before wrapping"
+            },
+            "legendLabelFontSize": {
+              "type": "number",
+              "minimum": 1,
+              "description": "Font size for legend labels"
+            },
+            "valueLabelFontSize": {
+              "type": "number",
+              "minimum": 1,
+              "description": "Font size override for value labels"
+            },
+            "categoryLabelFontSize": {
+              "type": "number",
+              "minimum": 1,
+              "description": "Font size override for category labels"
+            },
+            "axisLabelFontSize": {
+              "type": "number",
+              "minimum": 1,
+              "description": "Font size override for axis tick labels"
+            },
+            "yAxisTickFontFamily": {
+              "type": "string",
+              "description": "Font family for Y-axis tick labels"
+            },
+            "yAxisTickFontWeight": {
+              "type": "number",
+              "minimum": 100,
+              "maximum": 900,
+              "description": "Font weight for Y-axis tick labels"
+            },
+            "legendPosition": {
+              "type": "object",
+              "properties": {
+                "x": {"type": "number"},
+                "y": {"type": "number"}
+              },
+              "description": "Legend position"
+            },
+            "legendSize": {
+              "type": "object",
+              "properties": {
+                "width": {"type": "number", "minimum": 0},
+                "height": {"type": "number", "minimum": 0}
+              },
+              "description": "Legend size"
+            },
+            "xAxisLabelRotation": {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90,
+              "description": "X-axis label rotation angle"
+            },
+            "autoRotationEnabled": {
+              "type": "boolean",
+              "description": "Whether auto-rotation is enabled"
+            },
+            "dynamicPositioningEnabled": {
+              "type": "boolean",
+              "description": "Whether dynamic positioning is enabled"
+            },
+            "titleVerticalPosition": {
+              "type": "number",
+              "description": "Title vertical position"
+            },
+            "subtitleVerticalPosition": {
+              "type": "number",
+              "description": "Subtitle vertical position"
+            },
+            "legendVerticalPosition": {
+              "type": "number",
+              "description": "Legend vertical position"
+            },
+            "chartBorder": {
+              "type": "object",
+              "properties": {
+                "color": {"type": "string"},
+                "width": {"type": "number", "minimum": 0},
+                "type": {
+                  "type": "string",
+                  "enum": ["solid", "dashed", "dotted"]
+                }
+              },
+              "description": "Chart border configuration"
+            },
+            "cornerRadius": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Corner radius"
+            },
+            "topCornerRadius": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Top corner radius"
+            },
+            "bottomCornerRadius": {
+              "type": "number",
+              "minimum": 0,
+              "description": "Bottom corner radius"
+            },
+            "separateCornerRadius": {
+              "type": "boolean",
+              "description": "Whether to use separate corner radius"
+            },
+            "connectors": {
+              "type": "object",
+              "properties": {
+                "visible": {"type": "boolean"},
+                "strokeWidth": {"type": "number", "minimum": 0},
+                "strokeDasharray": {"type": "string"},
+                "color": {"type": "string"}
+              },
+              "description": "Connector configuration"
+            },
+            "percentAnnotations": {
+              "type": "object",
+              "properties": {
+                "visible": {"type": "boolean"},
+                "color": {"type": "string"},
+                "fontSize": {"type": "number", "minimum": 1},
+                "fontWeight": {"type": "number", "minimum": 100, "maximum": 900}
+              },
+              "description": "Percent annotation configuration"
+            },
             "valueLabels": {
               "type": "object",
-              "description": "Value label configuration",
               "properties": {
-                "visible": {
-                  "type": "boolean",
-                  "description": "Whether value labels are visible"
-                },
+                "visible": {"type": "boolean"},
                 "position": {
                   "type": "string",
-                  "enum": ["top", "bottom", "left", "right", "center"],
-                  "description": "Value label position"
+                  "enum": ["top", "bottom", "left", "right", "center"]
                 },
-                "color": {
+                "color": {"type": "string"},
+                "fontFamily": {"type": "string"},
+                "fontSize": {"type": "number", "minimum": 1},
+                "fontWeight": {"type": "number", "minimum": 100, "maximum": 900},
+                "offset": {"type": "number"},
+                "format": {
                   "type": "string",
-                  "pattern": "^#[0-9A-Fa-f]{6}$",
-                  "description": "Value label color"
-                },
-                "fontSize": {
-                  "type": "number",
-                  "minimum": 1,
-                  "description": "Value label font size"
+                  "enum": ["%", "$", "€", "£", "¥", "number"]
                 }
-              }
+              },
+              "description": "Value label configuration"
+            },
+            "categoryLabels": {
+              "type": "object",
+              "properties": {
+                "visible": {"type": "boolean"},
+                "position": {
+                  "type": "string",
+                  "enum": ["top", "bottom", "left", "right", "center"]
+                },
+                "color": {"type": "string"},
+                "fontFamily": {"type": "string"},
+                "fontSize": {"type": "number", "minimum": 1},
+                "fontWeight": {"type": "number", "minimum": 100, "maximum": 900},
+                "offset": {"type": "number"}
+              },
+              "description": "Category label configuration"
             },
             "yAxis": {
               "type": "object",
-              "description": "Y-axis configuration",
               "properties": {
-                "visible": {
-                  "type": "boolean",
-                  "description": "Whether Y-axis is visible"
-                },
-                "minValue": {
-                  "type": "number",
-                  "description": "Y-axis minimum value"
-                },
-                "maxValue": {
-                  "type": "number",
-                  "description": "Y-axis maximum value"
-                },
-                "tickInterval": {
-                  "type": "number",
-                  "minimum": 0,
-                  "description": "Y-axis tick interval"
-                },
-                "title": {
-                  "type": "string",
-                  "description": "Y-axis title"
-                }
-              }
+                "visible": {"type": "boolean"},
+                "minValue": {"type": "number"},
+                "maxValue": {"type": "number"},
+                "tickInterval": {"type": "number", "minimum": 0},
+                "color": {"type": "string"},
+                "fontFamily": {"type": "string"},
+                "fontSize": {"type": "number", "minimum": 1},
+                "fontWeight": {"type": "number", "minimum": 100, "maximum": 900},
+                "tickLength": {"type": "number", "minimum": 0},
+                "gridLines": {"type": "boolean"},
+                "title": {"type": "string"}
+              },
+              "description": "Y-axis configuration"
+            },
+            "xAxis": {
+              "type": "object",
+              "properties": {
+                "labelRotation": {"type": "number", "minimum": -90, "maximum": 90}
+              },
+              "description": "X-axis configuration"
             },
             "layout": {
               "type": "object",
-              "description": "Layout configuration",
               "properties": {
-                "barWidth": {
-                  "type": "number",
-                  "minimum": 1,
-                  "description": "Bar width in pixels"
-                },
-                "barSpacing": {
-                  "type": "number",
-                  "minimum": 0,
-                  "description": "Bar spacing in pixels"
-                },
-                "chartWidth": {
-                  "type": "number",
-                  "minimum": 100,
-                  "description": "Chart width in pixels"
-                },
-                "chartHeight": {
-                  "type": "number",
-                  "minimum": 100,
-                  "description": "Chart height in pixels"
-                }
-              }
+                "barWidth": {"type": "number", "minimum": 1, "maximum": 200},
+                "barSpacing": {"type": "number", "minimum": 0, "maximum": 100},
+                "chartWidth": {"type": "number", "minimum": 100, "maximum": 4000},
+                "chartHeight": {"type": "number", "minimum": 100, "maximum": 4000},
+                "marginTop": {"type": "number", "minimum": 0},
+                "marginBottom": {"type": "number", "minimum": 0},
+                "marginLeft": {"type": "number", "minimum": 0},
+                "marginRight": {"type": "number", "minimum": 0}
+              },
+              "description": "Layout configuration"
             }
           }
         }
