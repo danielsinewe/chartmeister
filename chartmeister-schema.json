@@ -3,221 +3,334 @@
   "$id": "https://github.com/danielsinewe/chartmeister/chartmeister-schema.json",
   "name": "chartmeister-schema",
   "title": "Chartmeister File Format Schema",
-  "description": "JSON schema for .chartmeister files - a format for saving and loading chart data and visual configurations. Version 6 includes enhanced schema validation, examples, and comprehensive documentation.",
+  "description": "Comprehensive JSON schema for .chartmeister files - optimized for AI generation. Supports waterfall charts, grouped bars, and complete visual configurations.",
+  "version": 6,
   "type": "object",
-  "required": [
-    "type",
-    "version",
-    "source",
-    "elements",
-    "appState",
-    "files"
-  ],
+  "required": ["type", "version", "source", "elements", "appState", "files"],
   "properties": {
     "lastModified": {
       "type": "string",
       "format": "date-time",
-      "description": "ISO 8601 timestamp of when the chart was last modified"
+      "description": "ISO 8601 timestamp of when the chart was last modified",
+      "examples": ["2025-10-28T12:00:00Z"]
     },
     "type": {
       "type": "string",
       "const": "chartmeister",
-      "description": "The type of the Chartmeister schema"
+      "description": "The type identifier for chartmeister files",
+      "examples": ["chartmeister"]
     },
     "version": {
       "type": "integer",
       "minimum": 1,
-      "description": "The version of the Chartmeister schema. Version 3 includes fixes for anchorToBaseline property handling in total bars."
+      "description": "Schema version number",
+      "examples": [6]
     },
     "source": {
       "type": "string",
       "const": "chartmeister-app",
-      "description": "The source URL of the Chartmeister application"
+      "description": "Source application identifier",
+      "examples": ["chartmeister-app"]
     },
     "elements": {
       "type": "array",
-      "description": "An array of objects representing chart elements on canvas",
+      "description": "Array of chart elements (bars, titles, legends, etc.)",
       "items": {
         "type": "object",
-        "required": [
-          "id",
-          "type"
-        ],
+        "required": ["id", "type"],
         "properties": {
           "id": {
             "type": "string",
-            "description": "Unique identifier for the element"
+            "description": "Unique identifier for the element",
+            "pattern": "^[a-zA-Z0-9_-]+$",
+            "examples": ["bar-1", "title-main", "legend-1"]
           },
           "type": {
             "type": "string",
-            "enum": [
-              "bar",
-              "connector",
-              "annotation",
-              "title",
-              "subtitle",
-              "legend"
-            ],
-            "description": "The type of chart element"
+            "enum": ["bar", "connector", "annotation", "title", "subtitle", "legend"],
+            "description": "Type of chart element",
+            "examples": ["bar", "title", "legend"]
           },
           "x": {
             "type": "number",
-            "description": "X coordinate of the element"
+            "description": "X coordinate in pixels",
+            "minimum": 0,
+            "examples": [100, 200, 300]
           },
           "y": {
             "type": "number",
-            "description": "Y coordinate of the element"
+            "description": "Y coordinate in pixels",
+            "minimum": 0,
+            "examples": [50, 150, 250]
           },
           "width": {
             "type": "number",
-            "description": "Width of the element"
+            "description": "Width in pixels",
+            "minimum": 0,
+            "examples": [50, 100, 200]
           },
           "height": {
             "type": "number",
-            "description": "Height of the element"
+            "description": "Height in pixels",
+            "minimum": 0,
+            "examples": [100, 200, 300]
           },
           "strokeColor": {
             "type": "string",
             "pattern": "^#[0-9A-Fa-f]{6}$",
-            "description": "Stroke color in hex format"
+            "description": "Border color in hex format",
+            "examples": ["#000000", "#FF5733", "#3498DB"]
           },
           "backgroundColor": {
             "type": "string",
             "pattern": "^#[0-9A-Fa-f]{6}$",
-            "description": "Background color in hex format"
+            "description": "Background color in hex format",
+            "examples": ["#FFFFFF", "#F8F9FA", "#E9ECEF"]
           },
           "strokeWidth": {
             "type": "number",
             "minimum": 0,
-            "description": "Width of the stroke"
+            "description": "Border width in pixels",
+            "examples": [0, 1, 2]
           },
           "locked": {
             "type": "boolean",
-            "description": "Whether the element is locked from editing"
-          },
-          "customData": {
-            "type": "object",
-            "description": "Custom data associated with the element",
-            "properties": {
-              "originalData": {
-                "type": "object",
-                "description": "Original data from the chart"
-              }
-            }
+            "description": "Whether the element is locked from editing",
+            "examples": [false, true]
           },
           "chartData": {
             "type": "object",
-            "description": "Chart-specific data for the element",
+            "description": "Chart-specific data for bars",
             "properties": {
               "label": {
                 "type": "string",
-                "description": "Label for the chart element"
+                "description": "Display label for the element",
+                "examples": ["Revenue", "Costs", "Profit"]
               },
               "value": {
                 "type": "number",
-                "description": "Value of the chart element"
+                "description": "Numeric value",
+                "minimum": 0,
+                "examples": [100, 250, 500]
               },
               "type": {
                 "type": "string",
-                "enum": [
-                  "total",
-                  "change",
-                  "start",
-                  "positive",
-                  "negative",
-                  "grouped"
-                ],
-                "description": "Type of chart element"
+                "enum": ["total", "change", "start", "positive", "negative", "grouped"],
+                "description": "Type of chart element",
+                "examples": ["positive", "negative", "grouped"]
               },
               "cumulative": {
                 "type": "number",
-                "description": "Cumulative value"
+                "description": "Cumulative value for waterfall charts",
+                "minimum": 0,
+                "examples": [100, 150, 200]
               },
               "editable": {
                 "type": "boolean",
-                "description": "Whether the element is editable"
+                "description": "Whether the value can be edited",
+                "examples": [true, false]
               },
               "showValueLabel": {
                 "type": "boolean",
-                "description": "Whether to show value label"
+                "description": "Whether to show the value label",
+                "examples": [true, false]
               },
               "showCategoryLabel": {
                 "type": "boolean",
-                "description": "Whether to show category label"
+                "description": "Whether to show the category label",
+                "examples": [true, false]
               },
               "color": {
                 "type": "string",
                 "pattern": "^#[0-9A-Fa-f]{6}$",
-                "description": "Color of the element"
-              },
-              "borderColor": {
-                "type": "string",
-                "pattern": "^#[0-9A-Fa-f]{6}$",
-                "description": "Border color of the element"
-              },
-              "borderWidth": {
-                "type": "number",
-                "minimum": 0,
-                "description": "Border width of the element"
+                "description": "Element color",
+                "examples": ["#4CAF50", "#F44336", "#2196F3"]
               },
               "segments": {
                 "type": "array",
-                "description": "Array of segments for segmented bars",
+                "description": "Segments for grouped bars",
                 "items": {
                   "type": "object",
                   "properties": {
-                    "id": {
-                      "type": "string",
-                      "description": "Unique identifier for the segment"
-                    },
                     "label": {
                       "type": "string",
-                      "description": "Label for the segment"
+                      "description": "Segment label",
+                      "examples": ["Without thinking", "With thinking"]
                     },
                     "value": {
                       "type": "number",
-                      "description": "Value of the segment"
+                      "description": "Segment value",
+                      "examples": [52.8, 22.1]
                     },
                     "color": {
                       "type": "string",
                       "pattern": "^#[0-9A-Fa-f]{6}$",
-                      "description": "Color of the segment"
-                    },
-                    "borderColor": {
-                      "type": "string",
-                      "pattern": "^#[0-9A-Fa-f]{6}$",
-                      "description": "Border color of the segment"
-                    },
-                    "borderWidth": {
-                      "type": "number",
-                      "minimum": 0,
-                      "description": "Border width of the segment"
-                    },
-                    "locked": {
-                      "type": "boolean",
-                      "description": "Whether the segment is locked"
-                    },
-                    "showValueLabel": {
-                      "type": "boolean",
-                      "description": "Whether to show value label for the segment"
-                    },
-                    "valueLabelOffsetX": {
-                      "type": "number",
-                      "description": "X offset for value label"
-                    },
-                    "valueLabelOffsetY": {
-                      "type": "number",
-                      "description": "Y offset for value label"
+                      "description": "Segment color",
+                      "examples": ["#f7c1d9", "#ea66b7"]
                     }
                   }
-                },
-                "computeTotal": {
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "appState": {
+      "type": "object",
+      "description": "Application state and visual configuration",
+      "properties": {
+        "viewBackgroundColor": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "description": "Background color of the view",
+          "examples": ["#ffffff", "#f8f9fa"]
+        },
+        "theme": {
+          "type": "string",
+          "enum": ["light", "dark"],
+          "description": "Application theme",
+          "examples": ["light", "dark"]
+        },
+        "chartVisual": {
+          "type": "object",
+          "description": "Chart visual configuration",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Chart title",
+              "examples": ["Sales Performance", "Revenue Analysis"]
+            },
+            "subtitle": {
+              "type": "string",
+              "description": "Chart subtitle",
+              "examples": ["Q1 2024 Results", "Year over Year Comparison"]
+            },
+            "showTitle": {
+              "type": "boolean",
+              "description": "Whether to show the title",
+              "examples": [true, false]
+            },
+            "showSubtitle": {
+              "type": "boolean",
+              "description": "Whether to show the subtitle",
+              "examples": [true, false]
+            },
+            "showLegend": {
+              "type": "boolean",
+              "description": "Whether to show the legend",
+              "examples": [true, false]
+            },
+            "showYAxis": {
+              "type": "boolean",
+              "description": "Whether to show the Y-axis",
+              "examples": [true, false]
+            },
+            "showXAxis": {
+              "type": "boolean",
+              "description": "Whether to show the X-axis",
+              "examples": [true, false]
+            },
+            "titleAlignment": {
+              "type": "string",
+              "enum": ["center", "justify", "start", "end"],
+              "description": "Title alignment",
+              "examples": ["center", "start"]
+            },
+            "legendLayout": {
+              "type": "string",
+              "enum": ["horizontal", "vertical"],
+              "description": "Legend layout direction",
+              "examples": ["horizontal", "vertical"]
+            },
+            "valueLabels": {
+              "type": "object",
+              "description": "Value label configuration",
+              "properties": {
+                "visible": {
                   "type": "boolean",
-                  "description": "Whether the element should be automatically calculated from previous values"
+                  "description": "Whether value labels are visible",
+                  "examples": [true, false]
                 },
-                "anchorToBaseline": {
+                "position": {
+                  "type": "string",
+                  "enum": ["top", "bottom", "left", "right", "center"],
+                  "description": "Value label position",
+                  "examples": ["top", "center"]
+                },
+                "color": {
+                  "type": "string",
+                  "pattern": "^#[0-9A-Fa-f]{6}$",
+                  "description": "Value label color",
+                  "examples": ["#111827", "#6B7280"]
+                },
+                "fontSize": {
+                  "type": "number",
+                  "minimum": 1,
+                  "description": "Value label font size",
+                  "examples": [12, 14, 16]
+                }
+              }
+            },
+            "yAxis": {
+              "type": "object",
+              "description": "Y-axis configuration",
+              "properties": {
+                "visible": {
                   "type": "boolean",
-                  "description": "Whether the element is anchored to the baseline"
+                  "description": "Whether Y-axis is visible",
+                  "examples": [true, false]
+                },
+                "minValue": {
+                  "type": "number",
+                  "description": "Y-axis minimum value",
+                  "examples": [0, 10, 100]
+                },
+                "maxValue": {
+                  "type": "number",
+                  "description": "Y-axis maximum value",
+                  "examples": [100, 500, 1000]
+                },
+                "tickInterval": {
+                  "type": "number",
+                  "minimum": 0,
+                  "description": "Y-axis tick interval",
+                  "examples": [10, 25, 50]
+                },
+                "title": {
+                  "type": "string",
+                  "description": "Y-axis title",
+                  "examples": ["Revenue ($)", "Count", "Percentage (%)"]
+                }
+              }
+            },
+            "layout": {
+              "type": "object",
+              "description": "Layout configuration",
+              "properties": {
+                "barWidth": {
+                  "type": "number",
+                  "minimum": 1,
+                  "description": "Bar width in pixels",
+                  "examples": [40, 60, 80]
+                },
+                "barSpacing": {
+                  "type": "number",
+                  "minimum": 0,
+                  "description": "Bar spacing in pixels",
+                  "examples": [10, 20, 30]
+                },
+                "chartWidth": {
+                  "type": "number",
+                  "minimum": 100,
+                  "description": "Chart width in pixels",
+                  "examples": [400, 600, 800]
+                },
+                "chartHeight": {
+                  "type": "number",
+                  "minimum": 100,
+                  "description": "Chart height in pixels",
+                  "examples": [300, 400, 500]
                 }
               }
             }
@@ -228,8 +341,75 @@
     "files": {
       "type": "object",
       "description": "Data for chart image elements",
-      "additionalProperties": true
+      "additionalProperties": true,
+      "examples": [{}]
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "examples": [
+    {
+      "type": "chartmeister",
+      "version": 6,
+      "source": "chartmeister-app",
+      "elements": [
+        {
+          "id": "bar-1",
+          "type": "bar",
+          "x": 100,
+          "y": 200,
+          "width": 60,
+          "height": 150,
+          "strokeColor": "#000000",
+          "backgroundColor": "#4CAF50",
+          "strokeWidth": 1,
+          "locked": false,
+          "chartData": {
+            "label": "Revenue",
+            "value": 150,
+            "type": "positive",
+            "cumulative": 150,
+            "editable": true,
+            "showValueLabel": true,
+            "showCategoryLabel": true,
+            "color": "#4CAF50"
+          }
+        }
+      ],
+      "appState": {
+        "viewBackgroundColor": "#ffffff",
+        "theme": "light",
+        "chartVisual": {
+          "title": "Sales Chart",
+          "subtitle": "Q1 2024",
+          "showTitle": true,
+          "showSubtitle": true,
+          "showLegend": true,
+          "showYAxis": true,
+          "showXAxis": true,
+          "titleAlignment": "center",
+          "legendLayout": "horizontal",
+          "valueLabels": {
+            "visible": true,
+            "position": "top",
+            "color": "#111827",
+            "fontSize": 14
+          },
+          "yAxis": {
+            "visible": true,
+            "minValue": 0,
+            "maxValue": 200,
+            "tickInterval": 50,
+            "title": "Revenue ($)"
+          },
+          "layout": {
+            "barWidth": 60,
+            "barSpacing": 20,
+            "chartWidth": 400,
+            "chartHeight": 300
+          }
+        }
+      },
+      "files": {}
+    }
+  ]
 }
