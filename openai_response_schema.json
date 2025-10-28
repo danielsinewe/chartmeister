@@ -147,6 +147,7 @@
                             "description": "Segment color."
                           }
                         },
+                        "required": ["label", "value", "color"],
                         "additionalProperties": false
                       },
                       "description": "Array of data segments."

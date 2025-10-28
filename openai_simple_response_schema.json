@@ -107,6 +107,7 @@
                             "type": "string"
                           }
                         },
+                        "required": ["label", "value", "color"],
                         "additionalProperties": false
                       }
                     }
