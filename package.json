@@ -1,6 +1,6 @@
 {
   "name": "chartmeister",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Open source library for the .chartmeister file format - a JSON-based standard for saving and loading chart data and visual configurations",
   "main": "chartmeister-schema.json",
   "files": [
