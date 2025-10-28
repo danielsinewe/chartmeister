@@ -362,6 +362,8 @@
               }
             },
             "required": [
+              "viewBackgroundColor",
+              "theme",
               "chartVisual"
             ],
             "additionalProperties": false,
