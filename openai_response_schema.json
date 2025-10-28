@@ -277,6 +277,7 @@
                         "description": "Font size, must be >=1."
                       }
                     },
+                    "required": ["visible", "position", "color", "fontSize"],
                     "additionalProperties": false,
                     "description": "Display for value labels."
                   },
@@ -305,6 +306,7 @@
                         "description": "Title for Y axis."
                       }
                     },
+                    "required": ["visible", "minValue", "maxValue", "tickInterval", "title"],
                     "additionalProperties": false,
                     "description": "Y axis settings."
                   },
@@ -336,6 +338,7 @@
                         "description": "Overall chart height, 100-4000 pixels."
                       }
                     },
+                    "required": ["barWidth", "barSpacing", "chartWidth", "chartHeight"],
                     "additionalProperties": false,
                     "description": "Layout measurements for chart."
                   }
