@@ -344,7 +344,18 @@
                   }
                 },
                 "required": [
-                  "title"
+                  "title",
+                  "subtitle",
+                  "showTitle",
+                  "showSubtitle",
+                  "showLegend",
+                  "showYAxis",
+                  "showXAxis",
+                  "titleAlignment",
+                  "legendLayout",
+                  "valueLabels",
+                  "yAxis",
+                  "layout"
                 ],
                 "additionalProperties": false,
                 "description": "Visual settings for the chart."
