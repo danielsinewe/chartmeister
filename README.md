@@ -6,7 +6,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/danielsinewe/chartmeister.svg)](https://github.com/danielsinewe/chartmeister/stargazers)
 [![GitHub issues](https://img.shields.io/github/issues/danielsinewe/chartmeister.svg)](https://github.com/danielsinewe/chartmeister/issues)
 
-The official open-source library for the `.chartmeister` file format - a JSON-based standard for saving and loading chart data and visual configurations.
+The official open-source library for the `.chartmeister` file format - a JSON-based standard for saving and loading chart data and visual configurations. Version 6 includes enhanced schema validation, examples, and comprehensive documentation.
 
 ## What is this?
 
@@ -16,7 +16,7 @@ This repository contains:
 - **Sample Charts**: Example `.chartmeister` files for different use cases
 - **Templates**: Chart templates for common scenarios
 
-The `.chartmeister` format is used by the [Chartmeister application](https://github.com/danielsinewe/chartmeister-app) to save and load chart configurations with full visual fidelity.
+The `.chartmeister` format is used by the [Chartmeister application](https://chartmeister.ai) to save and load chart configurations with full visual fidelity.
 
 ## Chart Categories
 
@@ -69,21 +69,32 @@ The `.chartmeister` file format is defined by a comprehensive JSON schema. See [
 
 ```json
 {
-  "version": 2,
   "type": "chartmeister",
+  "version": 6,
   "source": "chartmeister-app",
-  "chart": {
-    "title": {
-      "text": "Chart Title",
-      "subtitle": "Chart Subtitle"
-    },
-    "data": [
-      { "label": "Start", "value": 100, "type": "start" },
-      { "label": "Revenue", "value": 50, "type": "positive" },
-      { "label": "Costs", "value": -30, "type": "negative" },
-      { "label": "End", "value": 120, "type": "end" }
-    ]
-  }
+  "elements": [
+    {
+      "id": "bar-1",
+      "type": "bar",
+      "x": 100,
+      "y": 200,
+      "width": 50,
+      "height": 100,
+      "chartData": {
+        "label": "Revenue",
+        "value": 50,
+        "type": "positive",
+        "color": "#4CAF50"
+      }
+    }
+  ],
+  "appState": {
+    "chartVisual": {
+      "title": "My Chart",
+      "showTitle": true
+    }
+  },
+  "files": {}
 }
 ```
 
