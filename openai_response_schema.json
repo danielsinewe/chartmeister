@@ -109,12 +109,15 @@
                           "color": {
                             "type": "string"
                           }
-                        }
+                        },
+                        "additionalProperties": false
                       }
                     }
-                  }
+                  },
+                  "additionalProperties": false
                 }
-              }
+              },
+              "additionalProperties": false
             }
           },
           "appState": {
@@ -176,7 +179,8 @@
                         "type": "number",
                         "minimum": 1
                       }
-                    }
+                    },
+                    "additionalProperties": false
                   },
                   "yAxis": {
                     "type": "object",
@@ -197,7 +201,8 @@
                       "title": {
                         "type": "string"
                       }
-                    }
+                    },
+                    "additionalProperties": false
                   },
                   "layout": {
                     "type": "object",
@@ -222,11 +227,14 @@
                         "minimum": 100,
                         "maximum": 4000
                       }
-                    }
+                    },
+                    "additionalProperties": false
                   }
-                }
+                },
+                "additionalProperties": false
               }
-            }
+            },
+            "additionalProperties": false
           },
           "files": {
             "type": "object",
