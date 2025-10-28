@@ -4,7 +4,6 @@
   "name": "chartmeister-schema",
   "title": "Chartmeister File Format Schema",
   "description": "Comprehensive JSON schema for .chartmeister files - optimized for AI generation. Supports waterfall charts, grouped bars, and complete visual configurations.",
-  "version": 6,
   "type": "object",
   "required": ["type", "version", "source", "elements", "appState", "files"],
   "properties": {
