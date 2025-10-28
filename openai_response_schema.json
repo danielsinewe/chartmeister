@@ -1,6 +1,5 @@
 {
   "name": "chartmeister_response",
-  "strict": true,
   "schema": {
     "type": "object",
     "properties": {
@@ -9,91 +8,126 @@
         "properties": {
           "type": {
             "type": "string",
-            "const": "chartmeister"
+            "const": "chartmeister",
+            "description": "File type identifier, must be 'chartmeister'."
           },
           "version": {
             "type": "integer",
-            "minimum": 1
+            "minimum": 1,
+            "description": "Version of the chartmeister file, must be integer >= 1."
           },
           "source": {
             "type": "string",
-            "const": "chartmeister-app"
+            "const": "chartmeister-app",
+            "description": "Source system, must be 'chartmeister-app'."
           },
           "lastModified": {
-            "type": "string"
+            "type": "string",
+            "description": "Timestamp or description of last modification."
           },
           "elements": {
             "type": "array",
             "items": {
               "type": "object",
-              "required": ["id", "type"],
               "properties": {
                 "id": {
                   "type": "string",
-                  "pattern": "^[a-zA-Z0-9_-]+$"
+                  "pattern": "^[a-zA-Z0-9_-]+$",
+                  "description": "Unique element id, alphanumeric, underscores or dashes."
                 },
                 "type": {
                   "type": "string",
-                  "enum": ["bar", "connector", "annotation", "title", "subtitle", "legend"]
+                  "enum": [
+                    "bar",
+                    "connector",
+                    "annotation",
+                    "title",
+                    "subtitle",
+                    "legend"
+                  ],
+                  "description": "Element type."
                 },
                 "x": {
                   "type": "number",
-                  "minimum": 0
+                  "minimum": 0,
+                  "description": "Horizontal position, non-negative."
                 },
                 "y": {
                   "type": "number",
-                  "minimum": 0
+                  "minimum": 0,
+                  "description": "Vertical position, non-negative."
                 },
                 "width": {
                   "type": "number",
-                  "minimum": 0
+                  "minimum": 0,
+                  "description": "Width of the element, non-negative."
                 },
                 "height": {
                   "type": "number",
-                  "minimum": 0
+                  "minimum": 0,
+                  "description": "Height of the element, non-negative."
                 },
                 "strokeColor": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Stroke (border) color."
                 },
                 "backgroundColor": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "Background color."
                 },
                 "strokeWidth": {
                   "type": "number",
-                  "minimum": 0
+                  "minimum": 0,
+                  "description": "Stroke width, non-negative."
                 },
                 "locked": {
-                  "type": "boolean"
+                  "type": "boolean",
+                  "description": "If the element editing is locked."
                 },
                 "chartData": {
                   "type": "object",
                   "properties": {
                     "label": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Chart data label."
                     },
                     "value": {
                       "type": "number",
-                      "minimum": 0
+                      "minimum": 0,
+                      "description": "Value for the chart data, non-negative."
                     },
                     "type": {
                       "type": "string",
-                      "enum": ["total", "change", "start", "positive", "negative", "grouped"]
+                      "enum": [
+                        "total",
+                        "change",
+                        "start",
+                        "positive",
+                        "negative",
+                        "grouped"
+                      ],
+                      "description": "Chart data type."
                     },
                     "cumulative": {
                       "type": "number",
-                      "minimum": 0
+                      "minimum": 0,
+                      "description": "Cumulative value, non-negative."
                     },
                     "editable": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "If the data is editable."
                     },
                     "showValueLabel": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Show value label."
                     },
                     "showCategoryLabel": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "description": "Show category label."
                     },
                     "color": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Color for this data series or segment."
                     },
                     "segments": {
                       "type": "array",
@@ -101,108 +135,195 @@
                         "type": "object",
                         "properties": {
                           "label": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Segment label."
                           },
                           "value": {
-                            "type": "number"
+                            "type": "number",
+                            "description": "Segment value."
                           },
                           "color": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Segment color."
                           }
                         },
+                        "required": [
+                          "label",
+                          "value",
+                          "color"
+                        ],
                         "additionalProperties": false
-                      }
+                      },
+                      "description": "Array of data segments."
                     }
                   },
-                  "additionalProperties": false
+                  "required": [
+                    "label",
+                    "value",
+                    "type",
+                    "cumulative",
+                    "editable",
+                    "showValueLabel",
+                    "showCategoryLabel",
+                    "color",
+                    "segments"
+                  ],
+                  "additionalProperties": false,
+                  "description": "Optional chart data for an element."
                 }
               },
+              "required": [
+                "id",
+                "type",
+                "x",
+                "y",
+                "width",
+                "height",
+                "strokeColor",
+                "backgroundColor",
+                "strokeWidth",
+                "locked",
+                "chartData"
+              ],
               "additionalProperties": false
-            }
+            },
+            "description": "List of all elements in the chart."
           },
           "appState": {
             "type": "object",
             "properties": {
               "viewBackgroundColor": {
-                "type": "string"
+                "type": "string",
+                "description": "Background color for the chart view."
               },
               "theme": {
                 "type": "string",
-                "enum": ["light", "dark"]
+                "enum": [
+                  "light",
+                  "dark"
+                ],
+                "description": "Theme selection."
               },
               "chartVisual": {
                 "type": "object",
                 "properties": {
                   "title": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Chart title."
                   },
                   "subtitle": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Chart subtitle."
                   },
                   "showTitle": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "Show or hide chart title."
                   },
                   "showSubtitle": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "Show or hide chart subtitle."
                   },
                   "showLegend": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "Show or hide legend."
                   },
                   "showYAxis": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "Show or hide Y axis."
                   },
                   "showXAxis": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "Show or hide X axis."
                   },
                   "titleAlignment": {
                     "type": "string",
-                    "enum": ["left", "center", "right", "justify"]
+                    "enum": [
+                      "left",
+                      "center",
+                      "right",
+                      "justify"
+                    ],
+                    "description": "Title alignment option."
                   },
                   "legendLayout": {
                     "type": "string",
-                    "enum": ["horizontal", "vertical"]
+                    "enum": [
+                      "horizontal",
+                      "vertical"
+                    ],
+                    "description": "Legend layout."
                   },
                   "valueLabels": {
                     "type": "object",
                     "properties": {
                       "visible": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "Show value labels."
                       },
                       "position": {
                         "type": "string",
-                        "enum": ["top", "bottom", "left", "right", "center"]
+                        "enum": [
+                          "top",
+                          "bottom",
+                          "left",
+                          "right",
+                          "center"
+                        ],
+                        "description": "Position for value labels."
                       },
                       "color": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Color for value labels."
                       },
                       "fontSize": {
                         "type": "number",
-                        "minimum": 1
+                        "minimum": 1,
+                        "description": "Font size, must be >=1."
                       }
                     },
-                    "additionalProperties": false
+                    "required": [
+                      "visible",
+                      "position",
+                      "color",
+                      "fontSize"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Display for value labels."
                   },
                   "yAxis": {
                     "type": "object",
                     "properties": {
                       "visible": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "Show/hide Y axis."
                       },
                       "minValue": {
-                        "type": "number"
+                        "type": "number",
+                        "description": "Minimum value for axis."
                       },
                       "maxValue": {
-                        "type": "number"
+                        "type": "number",
+                        "description": "Maximum value for axis."
                       },
                       "tickInterval": {
                         "type": "number",
-                        "minimum": 0
+                        "minimum": 0,
+                        "description": "Interval between Y axis ticks, non-negative."
                       },
                       "title": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Title for Y axis."
                       }
                     },
-                    "additionalProperties": false
+                    "required": [
+                      "visible",
+                      "minValue",
+                      "maxValue",
+                      "tickInterval",
+                      "title"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Y axis settings."
                   },
                   "layout": {
                     "type": "object",
@@ -210,42 +331,96 @@
                       "barWidth": {
                         "type": "number",
                         "minimum": 1,
-                        "maximum": 200
+                        "maximum": 200,
+                        "description": "Width of individual bars, 1-200 pixels."
                       },
                       "barSpacing": {
                         "type": "number",
                         "minimum": 0,
-                        "maximum": 100
+                        "maximum": 100,
+                        "description": "Spacing between bars, 0-100 pixels."
                       },
                       "chartWidth": {
                         "type": "number",
                         "minimum": 100,
-                        "maximum": 4000
+                        "maximum": 4000,
+                        "description": "Overall chart width, 100-4000 pixels."
                       },
                       "chartHeight": {
                         "type": "number",
                         "minimum": 100,
-                        "maximum": 4000
+                        "maximum": 4000,
+                        "description": "Overall chart height, 100-4000 pixels."
                       }
                     },
-                    "additionalProperties": false
+                    "required": [
+                      "barWidth",
+                      "barSpacing",
+                      "chartWidth",
+                      "chartHeight"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Layout measurements for chart."
                   }
                 },
-                "additionalProperties": false
+                "required": [
+                  "title",
+                  "subtitle",
+                  "showTitle",
+                  "showSubtitle",
+                  "showLegend",
+                  "showYAxis",
+                  "showXAxis",
+                  "titleAlignment",
+                  "legendLayout",
+                  "valueLabels",
+                  "yAxis",
+                  "layout"
+                ],
+                "additionalProperties": false,
+                "description": "Visual settings for the chart."
               }
             },
-            "additionalProperties": false
+            "required": [
+              "viewBackgroundColor",
+              "theme",
+              "chartVisual"
+            ],
+            "additionalProperties": false,
+            "description": "Current app visual state."
           },
           "files": {
             "type": "object",
-            "additionalProperties": true
+            "description": "Auxiliary files data block.",
+            "additionalProperties": false,
+            "properties": {
+              "Placeholder1": {
+                "type": "string",
+                "description": "Placeholder - replace with the strict field you want"
+              }
+            },
+            "required": [
+              "Placeholder1"
+            ]
           }
         },
-        "required": ["type", "version", "source", "elements", "appState", "files"],
-        "additionalProperties": false
+        "required": [
+          "type",
+          "version",
+          "source",
+          "lastModified",
+          "elements",
+          "appState",
+          "files"
+        ],
+        "additionalProperties": false,
+        "description": "Top-level chartmeister file container."
       }
     },
-    "additionalProperties": false,
-    "required": ["chartmeister_file"]
-  }
+    "required": [
+      "chartmeister_file"
+    ],
+    "additionalProperties": false
+  },
+  "strict": true
 }
