@@ -1,6 +1,6 @@
 {
   "type": "chartmeister",
-  "version": 3,
+  "version": 6,
   "source": "chartmeister-app",
   "lastModified": "2025-10-23T21:13:30Z",
   "elements": [
@@ -160,36 +160,40 @@
       "showXAxisLine": true,
       "showXAxisTicks": true,
       "showXAxisLabels": true,
-        "showBackgroundGrid": false,
-        "hiddenLegendColors": [],
-        "legendEntries": [
-          {
-            "color": "#2f5f98",
-            "label": "Start",
-            "shape": "square"
-          },
-          {
-            "color": "#2d8bba",
-            "label": "Increase",
-            "shape": "square"
-          },
-          {
-            "color": "#41b8d5",
-            "label": "Decrease",
-            "shape": "square"
-          },
-          {
-            "color": "#6ce5e8",
-            "label": "End",
-            "shape": "square"
-          }
-        ],
-        "titleAlignment": "center",
+      "showBackgroundGrid": false,
+      "hiddenLegendColors": [],
+      "legendEntries": [
+        {
+          "color": "#2f5f98",
+          "label": "Start",
+          "shape": "square"
+        },
+        {
+          "color": "#2d8bba",
+          "label": "Increase",
+          "shape": "square"
+        },
+        {
+          "color": "#41b8d5",
+          "label": "Decrease",
+          "shape": "square"
+        },
+        {
+          "color": "#6ce5e8",
+          "label": "End",
+          "shape": "square"
+        }
+      ],
+      "titleAlignment": "center",
       "subtitleAlignment": "center",
       "legendAlignment": "center",
       "legendLayout": "horizontal",
       "legendRows": 1,
       "legendColumns": 4,
+      "legendLabelFontSize": 14,
+      "valueLabelFontSize": 16,
+      "categoryLabelFontSize": 14,
+      "axisLabelFontSize": 12,
       "xAxisLabelRotation": -45,
       "autoRotationEnabled": true,
       "dynamicPositioningEnabled": true,
@@ -269,7 +273,6 @@
         "marginLeft": 40,
         "marginRight": 20
       },
-      "cornerRadius": 0,
       "chartBorder": {
         "color": "transparent",
         "width": 0,
