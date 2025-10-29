@@ -7,7 +7,7 @@
       "chartmeister_file": {
         "const": {
           "type": "chartmeister",
-          "version": 3,
+          "version": 6,
           "source": "chartmeister-app",
           "lastModified": "2025-10-23T21:13:30Z",
           "elements": [
@@ -197,6 +197,10 @@
               "legendLayout": "horizontal",
               "legendRows": 1,
               "legendColumns": 4,
+              "legendLabelFontSize": 14,
+              "valueLabelFontSize": 16,
+              "categoryLabelFontSize": 14,
+              "axisLabelFontSize": 12,
               "xAxisLabelRotation": -45,
               "autoRotationEnabled": true,
               "dynamicPositioningEnabled": true,
