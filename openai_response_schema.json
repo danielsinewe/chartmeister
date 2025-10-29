@@ -6,6 +6,7 @@
     "properties": {
       "chartmeister_file": {
         "type": "object",
+        "additionalProperties": false,
         "const": {
           "type": "chartmeister",
           "version": 6,
