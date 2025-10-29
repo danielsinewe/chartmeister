@@ -1,5 +1,7 @@
 # Chartmeister (Schema + Examples)
 
+[![npm version](https://img.shields.io/npm/v/chartmeister.svg)](https://www.npmjs.com/package/chartmeister)
+
 [![npm version](https://badge.fury.io/js/chartmeister.svg)](https://badge.fury.io/js/chartmeister)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
