@@ -1,406 +1,363 @@
 {
   "name": "chartmeister_response",
+  "strict": true,
   "schema": {
     "type": "object",
     "properties": {
       "chartmeister_file": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "const": "chartmeister",
-            "description": "File type identifier, must be 'chartmeister'."
-          },
-          "version": {
-            "type": "integer",
-            "minimum": 1,
-            "description": "Version of the chartmeister file, must be integer >= 1."
-          },
-          "source": {
-            "type": "string",
-            "const": "chartmeister-app",
-            "description": "Source system, must be 'chartmeister-app'."
-          },
-          "lastModified": {
-            "type": "string",
-            "description": "Timestamp or description of last modification."
-          },
-          "elements": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "pattern": "^[a-zA-Z0-9_-]+$",
-                  "description": "Unique element id, alphanumeric, underscores or dashes."
-                },
-                "type": {
-                  "type": "string",
-                  "enum": [
-                    "bar",
-                    "connector",
-                    "annotation",
-                    "title",
-                    "subtitle",
-                    "legend"
-                  ],
-                  "description": "Element type."
-                },
-                "x": {
-                  "type": "number",
-                  "minimum": 0,
-                  "description": "Horizontal position, non-negative."
-                },
-                "y": {
-                  "type": "number",
-                  "minimum": 0,
-                  "description": "Vertical position, non-negative."
-                },
-                "width": {
-                  "type": "number",
-                  "minimum": 0,
-                  "description": "Width of the element, non-negative."
-                },
-                "height": {
-                  "type": "number",
-                  "minimum": 0,
-                  "description": "Height of the element, non-negative."
-                },
-                "strokeColor": {
-                  "type": "string",
-                  "description": "Stroke (border) color."
-                },
-                "backgroundColor": {
-                  "type": "string",
-                  "description": "Background color."
-                },
-                "strokeWidth": {
-                  "type": "number",
-                  "minimum": 0,
-                  "description": "Stroke width, non-negative."
-                },
-                "locked": {
-                  "type": "boolean",
-                  "description": "If the element editing is locked."
-                },
-                "chartData": {
-                  "type": "object",
-                  "properties": {
-                    "label": {
-                      "type": "string",
-                      "description": "Chart data label."
+        "const": {
+          "type": "chartmeister",
+          "version": 6,
+          "source": "chartmeister-app",
+          "elements": [
+            {
+              "id": "gpt-5",
+              "type": "bar",
+              "x": 0,
+              "y": 0,
+              "width": 40,
+              "height": 149.8,
+              "strokeColor": "transparent",
+              "strokeWidth": 0,
+              "locked": false,
+              "customData": {
+                "originalData": {
+                  "id": "gpt-5",
+                  "label": "GPT-5",
+                  "value": 74.9,
+                  "cumulative": 74.9,
+                  "type": "total",
+                  "computeTotal": false,
+                  "editable": true,
+                  "showValueLabel": true,
+                  "showCategoryLabel": true,
+                  "anchorToBaseline": true,
+                  "borderColor": "#8a3a6f",
+                  "borderWidth": 1,
+                  "segments": [
+                    {
+                      "id": "gpt-5--seg-1",
+                      "label": "Without thinking",
+                      "value": 52.8,
+                      "color": "#f5bacc",
+                      "borderColor": "#8a3a6f",
+                      "borderWidth": 1,
+                      "locked": false,
+                      "showValueLabel": true,
+                      "valueLabelOffsetX": 0,
+                      "valueLabelOffsetY": -145
                     },
-                    "value": {
-                      "type": "number",
-                      "minimum": 0,
-                      "description": "Value for the chart data, non-negative."
-                    },
-                    "type": {
-                      "type": "string",
-                      "enum": [
-                        "total",
-                        "change",
-                        "start",
-                        "positive",
-                        "negative",
-                        "grouped"
-                      ],
-                      "description": "Chart data type."
-                    },
-                    "cumulative": {
-                      "type": "number",
-                      "minimum": 0,
-                      "description": "Cumulative value, non-negative."
-                    },
-                    "editable": {
-                      "type": "boolean",
-                      "description": "If the data is editable."
-                    },
-                    "showValueLabel": {
-                      "type": "boolean",
-                      "description": "Show value label."
-                    },
-                    "showCategoryLabel": {
-                      "type": "boolean",
-                      "description": "Show category label."
-                    },
-                    "color": {
-                      "type": "string",
-                      "description": "Color for this data series or segment."
-                    },
-                    "segments": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "label": {
-                            "type": "string",
-                            "description": "Segment label."
-                          },
-                          "value": {
-                            "type": "number",
-                            "description": "Segment value."
-                          },
-                          "color": {
-                            "type": "string",
-                            "description": "Segment color."
-                          }
-                        },
-                        "required": ["label", "value", "color"],
-                        "additionalProperties": false
-                      },
-                      "description": "Array of data segments."
+                    {
+                      "id": "gpt-5--seg-2",
+                      "label": "With thinking",
+                      "value": 22.1,
+                      "color": "#f390ca",
+                      "borderColor": "#8a3a6f",
+                      "borderWidth": 1,
+                      "locked": false,
+                      "showValueLabel": false,
+                      "valueLabelOffsetX": 0,
+                      "valueLabelOffsetY": 0
                     }
-                  },
-                  "required": [
-                    "label",
-                    "value",
-                    "type",
-                    "cumulative",
-                    "editable",
-                    "showValueLabel",
-                    "showCategoryLabel",
-                    "color",
-                    "segments"
-                  ],
-                  "additionalProperties": false,
-                  "description": "Optional chart data for an element."
+                  ]
                 }
               },
-              "required": [
-                "id",
-                "type",
-                "x",
-                "y",
-                "width",
-                "height",
-                "strokeColor",
-                "backgroundColor",
-                "strokeWidth",
-                "locked",
-                "chartData"
-              ],
-              "additionalProperties": false
-            },
-            "description": "List of all elements in the chart."
-          },
-          "appState": {
-            "type": "object",
-            "properties": {
-              "viewBackgroundColor": {
-                "type": "string",
-                "description": "Background color for the chart view."
-              },
-              "theme": {
-                "type": "string",
-                "enum": [
-                  "light",
-                  "dark"
-                ],
-                "description": "Theme selection."
-              },
-              "chartVisual": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string",
-                    "description": "Chart title."
+              "chartData": {
+                "label": "GPT-5",
+                "value": 74.9,
+                "type": "total",
+                "cumulative": 74.9,
+                "editable": true,
+                "showValueLabel": true,
+                "showCategoryLabel": true,
+                "anchorToBaseline": true,
+                "borderColor": "#8a3a6f",
+                "borderWidth": 1,
+                "segments": [
+                  {
+                    "id": "gpt-5--seg-1",
+                    "label": "Without thinking",
+                    "value": 52.8,
+                    "color": "#f5bacc",
+                    "borderColor": "#8a3a6f",
+                    "borderWidth": 1,
+                    "locked": false,
+                    "showValueLabel": true,
+                    "valueLabelOffsetX": 0,
+                    "valueLabelOffsetY": -145
                   },
-                  "subtitle": {
-                    "type": "string",
-                    "description": "Chart subtitle."
-                  },
-                  "showTitle": {
-                    "type": "boolean",
-                    "description": "Show or hide chart title."
-                  },
-                  "showSubtitle": {
-                    "type": "boolean",
-                    "description": "Show or hide chart subtitle."
-                  },
-                  "showLegend": {
-                    "type": "boolean",
-                    "description": "Show or hide legend."
-                  },
-                  "showYAxis": {
-                    "type": "boolean",
-                    "description": "Show or hide Y axis."
-                  },
-                  "showXAxis": {
-                    "type": "boolean",
-                    "description": "Show or hide X axis."
-                  },
-                  "titleAlignment": {
-                    "type": "string",
-                    "enum": [
-                      "left",
-                      "center",
-                      "right",
-                      "justify"
-                    ],
-                    "description": "Title alignment option."
-                  },
-                  "legendLayout": {
-                    "type": "string",
-                    "enum": [
-                      "horizontal",
-                      "vertical"
-                    ],
-                    "description": "Legend layout."
-                  },
-                  "valueLabels": {
-                    "type": "object",
-                    "properties": {
-                      "visible": {
-                        "type": "boolean",
-                        "description": "Show value labels."
-                      },
-                      "position": {
-                        "type": "string",
-                        "enum": [
-                          "top",
-                          "bottom",
-                          "left",
-                          "right",
-                          "center"
-                        ],
-                        "description": "Position for value labels."
-                      },
-                      "color": {
-                        "type": "string",
-                        "description": "Color for value labels."
-                      },
-                      "fontSize": {
-                        "type": "number",
-                        "minimum": 1,
-                        "description": "Font size, must be >=1."
-                      }
-                    },
-                    "required": ["visible", "position", "color", "fontSize"],
-                    "additionalProperties": false,
-                    "description": "Display for value labels."
-                  },
-                  "yAxis": {
-                    "type": "object",
-                    "properties": {
-                      "visible": {
-                        "type": "boolean",
-                        "description": "Show/hide Y axis."
-                      },
-                      "minValue": {
-                        "type": "number",
-                        "description": "Minimum value for axis."
-                      },
-                      "maxValue": {
-                        "type": "number",
-                        "description": "Maximum value for axis."
-                      },
-                      "tickInterval": {
-                        "type": "number",
-                        "minimum": 0,
-                        "description": "Interval between Y axis ticks, non-negative."
-                      },
-                      "title": {
-                        "type": "string",
-                        "description": "Title for Y axis."
-                      }
-                    },
-                    "required": ["visible", "minValue", "maxValue", "tickInterval", "title"],
-                    "additionalProperties": false,
-                    "description": "Y axis settings."
-                  },
-                  "layout": {
-                    "type": "object",
-                    "properties": {
-                      "barWidth": {
-                        "type": "number",
-                        "minimum": 1,
-                        "maximum": 200,
-                        "description": "Width of individual bars, 1-200 pixels."
-                      },
-                      "barSpacing": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 100,
-                        "description": "Spacing between bars, 0-100 pixels."
-                      },
-                      "chartWidth": {
-                        "type": "number",
-                        "minimum": 100,
-                        "maximum": 4000,
-                        "description": "Overall chart width, 100-4000 pixels."
-                      },
-                      "chartHeight": {
-                        "type": "number",
-                        "minimum": 100,
-                        "maximum": 4000,
-                        "description": "Overall chart height, 100-4000 pixels."
-                      }
-                    },
-                    "required": ["barWidth", "barSpacing", "chartWidth", "chartHeight"],
-                    "additionalProperties": false,
-                    "description": "Layout measurements for chart."
+                  {
+                    "id": "gpt-5--seg-2",
+                    "label": "With thinking",
+                    "value": 22.1,
+                    "color": "#f390ca",
+                    "borderColor": "#8a3a6f",
+                    "borderWidth": 1,
+                    "locked": false,
+                    "showValueLabel": false,
+                    "valueLabelOffsetX": 0,
+                    "valueLabelOffsetY": 0
                   }
+                ]
+              }
+            },
+            {
+              "id": "openai-o3",
+              "type": "bar",
+              "x": 50,
+              "y": 0,
+              "width": 40,
+              "height": 138.2,
+              "strokeColor": "#8a3a6f",
+              "backgroundColor": "#ffffff",
+              "strokeWidth": 1,
+              "locked": false,
+              "customData": {
+                "originalData": {
+                  "id": "openai-o3",
+                  "label": "OpenAI o3",
+                  "value": 69.1,
+                  "cumulative": 69.1,
+                  "type": "total",
+                  "computeTotal": false,
+                  "editable": true,
+                  "showValueLabel": true,
+                  "showCategoryLabel": true,
+                  "anchorToBaseline": true,
+                  "color": "#ffffff",
+                  "borderColor": "#8a3a6f",
+                  "borderWidth": 1
+                }
+              },
+              "chartData": {
+                "label": "OpenAI o3",
+                "value": 69.1,
+                "type": "total",
+                "cumulative": 69.1,
+                "editable": true,
+                "showValueLabel": true,
+                "showCategoryLabel": true,
+                "anchorToBaseline": true,
+                "color": "#ffffff",
+                "borderColor": "#8a3a6f",
+                "borderWidth": 1
+              }
+            },
+            {
+              "id": "gpt-4o",
+              "type": "bar",
+              "x": 100,
+              "y": 0,
+              "width": 40,
+              "height": 61.6,
+              "strokeColor": "#8a3a6f",
+              "backgroundColor": "#ffffff",
+              "strokeWidth": 1,
+              "locked": false,
+              "customData": {
+                "originalData": {
+                  "id": "gpt-4o",
+                  "label": "GPT-4o",
+                  "value": 30.8,
+                  "cumulative": 30.8,
+                  "type": "total",
+                  "computeTotal": false,
+                  "editable": true,
+                  "showValueLabel": true,
+                  "showCategoryLabel": true,
+                  "anchorToBaseline": true,
+                  "color": "#ffffff",
+                  "borderColor": "#8a3a6f",
+                  "borderWidth": 1
+                }
+              },
+              "chartData": {
+                "label": "GPT-4o",
+                "value": 30.8,
+                "type": "total",
+                "cumulative": 30.8,
+                "editable": true,
+                "showValueLabel": true,
+                "showCategoryLabel": true,
+                "anchorToBaseline": true,
+                "color": "#ffffff",
+                "borderColor": "#8a3a6f",
+                "borderWidth": 1
+              }
+            }
+          ],
+          "appState": {
+            "viewBackgroundColor": "#ffffff",
+            "currentItemStrokeColor": "#000000",
+            "currentItemBackgroundColor": "#ffffff",
+            "currentItemFillStyle": "hachure",
+            "currentItemStrokeWidth": 1,
+            "currentItemStrokeStyle": "solid",
+            "currentItemRoughness": 1,
+            "currentItemOpacity": 100,
+            "currentItemFontFamily": 1,
+            "currentItemFontSize": 16,
+            "currentItemTextAlign": "left",
+            "currentItemStartArrowhead": null,
+            "currentItemEndArrowhead": null,
+            "scrollX": 0,
+            "scrollY": 0,
+            "zoom": {
+              "value": 1
+            },
+            "gridSize": null,
+            "viewModeEnabled": false,
+            "theme": "light",
+            "selectedElementIds": {},
+            "selectedGroupIds": {},
+            "editingGroupId": null,
+            "editingLinearElement": null,
+            "selectedElements": {
+              "elements": [],
+              "appState": {}
+            },
+            "chartState": {
+              "selectedBar": null,
+              "selectedConnector": null,
+              "selectedSegment": null,
+              "selectedPercentAnnotation": null,
+              "hoveredElement": null,
+              "editingLabel": null,
+              "editingValue": null,
+              "editingSegmentValue": null,
+              "isDragging": null,
+              "draggingSegment": null,
+              "showLockIcon": null,
+              "guides": [],
+              "selectedGuideId": null,
+              "contextMenu": null
+            },
+            "chartVisual": {
+              "title": {
+                "lines": [
+                  "SWE-bench Verified (n=477)",
+                  "Software engineering"
+                ]
+              },
+              "subtitle": "",
+              "showTitle": true,
+              "showSubtitle": false,
+              "showLegend": true,
+              "showYAxis": true,
+              "showYAxisName": true,
+              "showYAxisLine": false,
+              "showYAxisTicks": false,
+              "showYAxisLabels": true,
+              "showXAxis": true,
+              "showXAxisName": true,
+              "showXAxisLine": false,
+              "showXAxisTicks": false,
+              "showXAxisLabels": true,
+              "showBackgroundGrid": false,
+              "hiddenLegendColors": [],
+              "legendEntries": [
+                {
+                  "color": "#f390ca",
+                  "label": "With thinking",
+                  "shape": "circle"
                 },
-                "required": [
-                  "title",
-                  "subtitle",
-                  "showTitle",
-                  "showSubtitle",
-                  "showLegend",
-                  "showYAxis",
-                  "showXAxis",
-                  "titleAlignment",
-                  "legendLayout",
-                  "valueLabels",
-                  "yAxis",
-                  "layout"
-                ],
-                "additionalProperties": false,
-                "description": "Visual settings for the chart."
+                {
+                  "color": "#f5bacc",
+                  "label": "Without thinking",
+                  "shape": "circle"
+                }
+              ],
+              "legendIconShapes": {
+                "#f390ca": "circle",
+                "#f5bacc": "circle"
+              },
+              "titleAlignment": "start",
+              "subtitleAlignment": "start",
+              "legendAlignment": "start",
+              "legendLayout": "vertical",
+              "legendRows": 2,
+              "legendColumns": 1,
+              "legendMaxWidth": 200,
+              "legendPosition": {
+                "x": 0,
+                "y": -60
+              },
+              "xAxisLabelRotation": -45,
+              "autoRotationEnabled": false,
+              "dynamicPositioningEnabled": true,
+              "titleVerticalPosition": 0,
+              "subtitleVerticalPosition": 0,
+              "legendVerticalPosition": 0,
+              "chartBorder": {
+                "color": "#000000",
+                "width": 1,
+                "type": "solid"
+              },
+              "cornerRadius": 8,
+              "topCornerRadius": 8,
+              "bottomCornerRadius": 8,
+              "separateCornerRadius": false,
+              "connectors": {
+                "visible": false,
+                "strokeWidth": 2,
+                "strokeDasharray": "none",
+                "color": "#111827"
+              },
+              "percentAnnotations": {
+                "visible": false,
+                "color": "#111827",
+                "fontSize": 12,
+                "fontWeight": 500
+              },
+              "valueLabels": {
+                "visible": true,
+                "position": "top",
+                "color": "#111827",
+                "fontSize": 16,
+                "fontWeight": 500,
+                "offset": 10,
+                "format": "%"
+              },
+              "categoryLabels": {
+                "visible": true,
+                "position": "bottom",
+                "color": "#111827",
+                "fontSize": 14,
+                "fontWeight": 400,
+                "offset": 10
+              },
+              "yAxis": {
+                "visible": true,
+                "minValue": 0,
+                "maxValue": 80,
+                "tickInterval": 20,
+                "color": "#6B7280",
+                "fontSize": 12,
+                "fontWeight": 400,
+                "tickLength": 5,
+                "gridLines": false,
+                "title": "Accuracy, pass@1"
+              },
+              "xAxis": {
+                "labelRotation": -45
+              },
+              "layout": {
+                "barWidth": 35,
+                "barSpacing": 10,
+                "chartWidth": 350,
+                "chartHeight": 300,
+                "marginTop": 40,
+                "marginBottom": 40,
+                "marginLeft": 40,
+                "marginRight": 20
               }
-            },
-            "required": [
-              "viewBackgroundColor",
-              "theme",
-              "chartVisual"
-            ],
-            "additionalProperties": false,
-            "description": "Current app visual state."
+            }
           },
-          "files": {
-            "type": "object",
-            "description": "Auxiliary files data block.",
-            "additionalProperties": false,
-            "properties": {
-              "Placeholder1": {
-                "type": "string",
-                "description": "Placeholder - replace with the strict field you want"
-              }
-            },
-            "required": [
-              "Placeholder1"
-            ]
-          }
-        },
-        "required": [
-          "type",
-          "version",
-          "source",
-          "lastModified",
-          "elements",
-          "appState",
-          "files"
-        ],
-        "additionalProperties": false,
-        "description": "Top-level chartmeister file container."
+          "files": {}
+        }
       }
     },
-    "required": [
-      "chartmeister_file"
-    ],
+    "required": ["chartmeister_file"],
     "additionalProperties": false
-  },
-  "strict": true
+  }
 }
