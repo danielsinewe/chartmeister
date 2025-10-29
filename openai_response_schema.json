@@ -5,6 +5,7 @@
     "type": "object",
     "properties": {
       "chartmeister_file": {
+        "type": "object",
         "const": {
           "type": "chartmeister",
           "version": 6,
