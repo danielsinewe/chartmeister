@@ -7,182 +7,97 @@
       "chartmeister_file": {
         "const": {
           "type": "chartmeister",
-          "version": 6,
+          "version": 3,
           "source": "chartmeister-app",
+          "lastModified": "2025-10-23T21:13:30Z",
           "elements": [
             {
-              "id": "gpt-5",
+              "id": "1",
               "type": "bar",
               "x": 0,
               "y": 0,
               "width": 40,
-              "height": 149.8,
+              "height": 200,
               "strokeColor": "transparent",
+              "backgroundColor": "#2f5f98",
               "strokeWidth": 0,
               "locked": false,
-              "customData": {
-                "originalData": {
-                  "id": "gpt-5",
-                  "label": "GPT-5",
-                  "value": 74.9,
-                  "cumulative": 74.9,
-                  "type": "total",
-                  "computeTotal": false,
-                  "editable": true,
-                  "showValueLabel": true,
-                  "showCategoryLabel": true,
-                  "anchorToBaseline": true,
-                  "borderColor": "#8a3a6f",
-                  "borderWidth": 1,
-                  "segments": [
-                    {
-                      "id": "gpt-5--seg-1",
-                      "label": "Without thinking",
-                      "value": 52.8,
-                      "color": "#f5bacc",
-                      "borderColor": "#8a3a6f",
-                      "borderWidth": 1,
-                      "locked": false,
-                      "showValueLabel": true,
-                      "valueLabelOffsetX": 0,
-                      "valueLabelOffsetY": -145
-                    },
-                    {
-                      "id": "gpt-5--seg-2",
-                      "label": "With thinking",
-                      "value": 22.1,
-                      "color": "#f390ca",
-                      "borderColor": "#8a3a6f",
-                      "borderWidth": 1,
-                      "locked": false,
-                      "showValueLabel": false,
-                      "valueLabelOffsetX": 0,
-                      "valueLabelOffsetY": 0
-                    }
-                  ]
-                }
-              },
               "chartData": {
-                "label": "GPT-5",
-                "value": 74.9,
-                "type": "total",
-                "cumulative": 74.9,
+                "label": "Start",
+                "value": 100,
+                "type": "start",
+                "cumulative": 100,
                 "editable": true,
                 "showValueLabel": true,
                 "showCategoryLabel": true,
-                "anchorToBaseline": true,
-                "borderColor": "#8a3a6f",
-                "borderWidth": 1,
-                "segments": [
-                  {
-                    "id": "gpt-5--seg-1",
-                    "label": "Without thinking",
-                    "value": 52.8,
-                    "color": "#f5bacc",
-                    "borderColor": "#8a3a6f",
-                    "borderWidth": 1,
-                    "locked": false,
-                    "showValueLabel": true,
-                    "valueLabelOffsetX": 0,
-                    "valueLabelOffsetY": -145
-                  },
-                  {
-                    "id": "gpt-5--seg-2",
-                    "label": "With thinking",
-                    "value": 22.1,
-                    "color": "#f390ca",
-                    "borderColor": "#8a3a6f",
-                    "borderWidth": 1,
-                    "locked": false,
-                    "showValueLabel": false,
-                    "valueLabelOffsetX": 0,
-                    "valueLabelOffsetY": 0
-                  }
-                ]
+                "color": "#2f5f98"
               }
             },
             {
-              "id": "openai-o3",
+              "id": "2",
               "type": "bar",
               "x": 50,
               "y": 0,
               "width": 40,
-              "height": 138.2,
-              "strokeColor": "#8a3a6f",
-              "backgroundColor": "#ffffff",
-              "strokeWidth": 1,
+              "height": 50,
+              "strokeColor": "transparent",
+              "backgroundColor": "#2d8bba",
+              "strokeWidth": 0,
               "locked": false,
-              "customData": {
-                "originalData": {
-                  "id": "openai-o3",
-                  "label": "OpenAI o3",
-                  "value": 69.1,
-                  "cumulative": 69.1,
-                  "type": "total",
-                  "computeTotal": false,
-                  "editable": true,
-                  "showValueLabel": true,
-                  "showCategoryLabel": true,
-                  "anchorToBaseline": true,
-                  "color": "#ffffff",
-                  "borderColor": "#8a3a6f",
-                  "borderWidth": 1
-                }
-              },
               "chartData": {
-                "label": "OpenAI o3",
-                "value": 69.1,
-                "type": "total",
-                "cumulative": 69.1,
+                "label": "Increase",
+                "value": 25,
+                "type": "positive",
+                "cumulative": 125,
                 "editable": true,
                 "showValueLabel": true,
                 "showCategoryLabel": true,
-                "anchorToBaseline": true,
-                "color": "#ffffff",
-                "borderColor": "#8a3a6f",
-                "borderWidth": 1
+                "color": "#2d8bba"
               }
             },
             {
-              "id": "gpt-4o",
+              "id": "3",
               "type": "bar",
               "x": 100,
               "y": 0,
               "width": 40,
-              "height": 61.6,
-              "strokeColor": "#8a3a6f",
-              "backgroundColor": "#ffffff",
-              "strokeWidth": 1,
+              "height": 30,
+              "strokeColor": "transparent",
+              "backgroundColor": "#41b8d5",
+              "strokeWidth": 0,
               "locked": false,
-              "customData": {
-                "originalData": {
-                  "id": "gpt-4o",
-                  "label": "GPT-4o",
-                  "value": 30.8,
-                  "cumulative": 30.8,
-                  "type": "total",
-                  "computeTotal": false,
-                  "editable": true,
-                  "showValueLabel": true,
-                  "showCategoryLabel": true,
-                  "anchorToBaseline": true,
-                  "color": "#ffffff",
-                  "borderColor": "#8a3a6f",
-                  "borderWidth": 1
-                }
-              },
               "chartData": {
-                "label": "GPT-4o",
-                "value": 30.8,
-                "type": "total",
-                "cumulative": 30.8,
+                "label": "Decrease",
+                "value": -15,
+                "type": "negative",
+                "cumulative": 110,
                 "editable": true,
                 "showValueLabel": true,
                 "showCategoryLabel": true,
-                "anchorToBaseline": true,
-                "color": "#ffffff",
-                "borderColor": "#8a3a6f",
-                "borderWidth": 1
+                "color": "#41b8d5"
+              }
+            },
+            {
+              "id": "4",
+              "type": "bar",
+              "x": 150,
+              "y": 0,
+              "width": 40,
+              "height": 220,
+              "strokeColor": "transparent",
+              "backgroundColor": "#6ce5e8",
+              "strokeWidth": 0,
+              "locked": true,
+              "chartData": {
+                "label": "End",
+                "value": 110,
+                "type": "total",
+                "cumulative": 110,
+                "editable": false,
+                "showValueLabel": true,
+                "showCategoryLabel": true,
+                "color": "#6ce5e8",
+                "anchorToBaseline": false
               }
             }
           ],
@@ -225,80 +140,80 @@
               "editingLabel": null,
               "editingValue": null,
               "editingSegmentValue": null,
-              "isDragging": null,
+              "isDragging": false,
               "draggingSegment": null,
               "showLockIcon": null,
               "guides": [],
               "selectedGuideId": null,
-              "contextMenu": null
+              "contextMenu": {
+                "visible": false,
+                "x": 0,
+                "y": 0
+              }
             },
             "chartVisual": {
-              "title": {
-                "lines": [
-                  "SWE-bench Verified (n=477)",
-                  "Software engineering"
-                ]
-              },
-              "subtitle": "",
+              "title": "Chartmeister",
+              "subtitle": "Showing start, changes, and total",
               "showTitle": true,
-              "showSubtitle": false,
+              "showSubtitle": true,
               "showLegend": true,
               "showYAxis": true,
               "showYAxisName": true,
-              "showYAxisLine": false,
-              "showYAxisTicks": false,
+              "showYAxisLine": true,
+              "showYAxisTicks": true,
               "showYAxisLabels": true,
               "showXAxis": true,
               "showXAxisName": true,
-              "showXAxisLine": false,
-              "showXAxisTicks": false,
+              "showXAxisLine": true,
+              "showXAxisTicks": true,
               "showXAxisLabels": true,
               "showBackgroundGrid": false,
               "hiddenLegendColors": [],
               "legendEntries": [
                 {
-                  "color": "#f390ca",
-                  "label": "With thinking",
-                  "shape": "circle"
+                  "color": "#2f5f98",
+                  "label": "Start",
+                  "shape": "square"
                 },
                 {
-                  "color": "#f5bacc",
-                  "label": "Without thinking",
-                  "shape": "circle"
+                  "color": "#2d8bba",
+                  "label": "Increase",
+                  "shape": "square"
+                },
+                {
+                  "color": "#41b8d5",
+                  "label": "Decrease",
+                  "shape": "square"
+                },
+                {
+                  "color": "#6ce5e8",
+                  "label": "End",
+                  "shape": "square"
                 }
               ],
-              "legendIconShapes": {
-                "#f390ca": "circle",
-                "#f5bacc": "circle"
-              },
-              "titleAlignment": "start",
-              "subtitleAlignment": "start",
-              "legendAlignment": "start",
-              "legendLayout": "vertical",
-              "legendRows": 2,
-              "legendColumns": 1,
-              "legendMaxWidth": 200,
-              "legendPosition": {
-                "x": 0,
-                "y": -60
-              },
+              "titleAlignment": "center",
+              "subtitleAlignment": "center",
+              "legendAlignment": "center",
+              "legendLayout": "horizontal",
+              "legendRows": 1,
+              "legendColumns": 4,
               "xAxisLabelRotation": -45,
-              "autoRotationEnabled": false,
+              "autoRotationEnabled": true,
               "dynamicPositioningEnabled": true,
               "titleVerticalPosition": 0,
               "subtitleVerticalPosition": 0,
               "legendVerticalPosition": 0,
               "chartBorder": {
                 "color": "#000000",
-                "width": 1,
+                "width": 0,
                 "type": "solid"
               },
-              "cornerRadius": 8,
-              "topCornerRadius": 8,
-              "bottomCornerRadius": 8,
+              "cornerRadius": 0,
+              "topCornerRadius": 0,
+              "bottomCornerRadius": 0,
               "separateCornerRadius": false,
               "connectors": {
-                "visible": false,
+                "visible": true,
                 "strokeWidth": 2,
                 "strokeDasharray": "none",
                 "color": "#111827"
@@ -315,8 +230,7 @@
                 "color": "#111827",
                 "fontSize": 16,
                 "fontWeight": 500,
-                "offset": 10,
-                "format": "%"
+                "offset": 10
               },
               "categoryLabels": {
                 "visible": true,
@@ -329,27 +243,43 @@
               "yAxis": {
                 "visible": true,
                 "minValue": 0,
-                "maxValue": 80,
-                "tickInterval": 20,
+                "maxValue": 125,
+                "tickInterval": 25,
                 "color": "#6B7280",
                 "fontSize": 12,
                 "fontWeight": 400,
                 "tickLength": 5,
-                "gridLines": false,
-                "title": "Accuracy, pass@1"
+                "gridLines": false
               },
               "xAxis": {
                 "labelRotation": -45
+              },
+              "titleSize": {
+                "width": 870,
+                "height": 40
+              },
+              "subtitleSize": {
+                "width": 870,
+                "height": 30
+              },
+              "legendSize": {
+                "width": 870,
+                "height": 60
               },
               "layout": {
                 "barWidth": 35,
                 "barSpacing": 10,
                 "chartWidth": 350,
-                "chartHeight": 300,
-                "marginTop": 40,
+                "chartHeight": 350,
+                "marginTop": 20,
                 "marginBottom": 40,
                 "marginLeft": 40,
                 "marginRight": 20
+              },
+              "chartBorder": {
+                "color": "transparent",
+                "width": 0,
+                "type": "solid"
               }
             }
           },
