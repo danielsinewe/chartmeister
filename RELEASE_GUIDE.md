@@ -5,30 +5,21 @@ This guide documents how to cut and publish releases for the Chartmeister librar
 ## 🚀 Release Process
 
 1. Ensure `main` is green and `CHANGELOG.md` is up to date.
-2. Bump the version:
+2. Bump the version locally (this updates `package.json` and creates a tag):
 
    ```bash
    npm version <patch|minor|major>
+   git push origin main --follow-tags
    ```
 
-3. Build the distributable and verify the output:
+3. Pushing a tag like `v6.0.1` automatically triggers `.github/workflows/release.yml`, which:
+   - installs dependencies with `npm ci`
+   - runs `npm run build`
+   - publishes the package via npm trusted publishing (`npm publish --provenance --access public`)
 
-   ```bash
-   npm install
-   npm run build
-   npm pack --dry-run
-   ```
+4. Optionally draft GitHub release notes from the changelog (the workflow does not create a release automatically).
 
-4. Commit the changes, push, and create a tag (for example `v6.0.0`).
-5. Publish:
-
-   ```bash
-   npm publish --access public
-   ```
-
-6. Draft GitHub release notes from the changelog.
-
-Automations are optional—the process above works locally and in CI.
+Manual `npm publish` is no longer required.
 
 ## 📦 Package Contents (v6)
 
@@ -70,12 +61,9 @@ chartmeister/
 ## ✅ Release Checklist
 
 - [ ] Update `CHANGELOG.md`
-- [ ] Bump `version` in `package.json`
-- [ ] Run `npm install`
-- [ ] Run `npm run build`
-- [ ] `npm pack --dry-run` to inspect the tarball
-- [ ] Publish (`npm publish --access public`)
-- [ ] Create Git tag / GitHub release
+- [ ] Run `npm version <patch|minor|major>`
+- [ ] Push `main` and the new `v*` tag (`git push origin main --follow-tags`)
+- [ ] (Optional) Inspect the workflow run and draft GitHub release notes
 
 ## 🎯 Version Strategy
 
