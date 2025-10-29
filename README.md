@@ -1,116 +1,62 @@
-# Chartmeister Library
+# Chartmeister (Schema + Examples)
 
 [![npm version](https://badge.fury.io/js/chartmeister.svg)](https://badge.fury.io/js/chartmeister)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![CI](https://github.com/danielsinewe/chartmeister/workflows/CI/badge.svg)](https://github.com/danielsinewe/chartmeister/actions)
-[![GitHub stars](https://img.shields.io/github/stars/danielsinewe/chartmeister.svg)](https://github.com/danielsinewe/chartmeister/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/danielsinewe/chartmeister.svg)](https://github.com/danielsinewe/chartmeister/issues)
 
-The official open-source library for the `.chartmeister` file format - a JSON-based standard for saving and loading chart data and visual configurations. Version 6 includes enhanced schema validation, examples, and comprehensive documentation.
+Authoritative JSON schema for `.chartmeister` files plus canonical examples and the lightweight utilities used by [chartmeister.ai](https://chartmeister.ai).
 
-## What is this?
+## Contents
 
-This repository contains:
-- **JSON Schema**: Official schema for `.chartmeister` files (`chartmeister-schema.json`)
-- **Documentation**: Complete documentation for the file format
-- **Sample Charts**: Example `.chartmeister` files for different use cases
-- **Templates**: Chart templates for common scenarios
+- `chartmeister-schema.json` – schema v6 for `.chartmeister` files
+- `examples/` – canonical chart files (`default.chartmeister`, `openai.chartmeister`)
+- `dist/` – runtime helpers and type definitions (`validate`, `schemaVersion`, `schema`)
 
-The `.chartmeister` format is used by the [Chartmeister application](https://chartmeister.ai) to save and load chart configurations with full visual fidelity.
+## Install
 
-## Chart Categories
-
-### Examples
-- **sample.json** - Basic waterfall chart example (used by chartmeister.ai)
-- **openai.json** - OpenAI SWE-bench chart (used by chartmeister.ai/openai)
-- **basic-waterfall.json** - Simple waterfall chart with revenue/costs
-- **segmented-bar.json** - Segmented bar chart example
-
-### Business
-- **sales-waterfall.json** - Business sales waterfall chart
-
-### Finance
-- **quarterly-revenue.json** - Quarterly revenue analysis chart
-
-### Templates
-- **startup-metrics.json** - Startup financial metrics template
-- **project-timeline.json** - Project timeline and progress template
-
-## How to Use
-
-### Quick Start
-1. Download any JSON file from this repository
-2. Open the [Chartmeister application](https://chartmeister.ai)
-3. Import the JSON file to visualize the chart
-
-### For Developers
 ```bash
-# Install the library
 npm install chartmeister
-
-# Validate your chartmeister files
-npm run validate
-
-# Use in your application
-const schema = require('chartmeister/chartmeister-schema.json');
 ```
 
-### For Designers
-- Browse the examples in the `charts/` directory
-- Use templates from the `templates/` directory
-- Customize colors, labels, and layouts
-- Export as `.chartmeister` files
+## Usage
 
-## JSON Schema
+```ts
+import { schema, schemaVersion, validate } from "chartmeister";
 
-The `.chartmeister` file format is defined by a comprehensive JSON schema. See [chartmeister-schema.json](./chartmeister-schema.json) for the complete specification.
-
-### Quick Start
-
-```json
-{
-  "type": "chartmeister",
-  "version": 6,
-  "source": "chartmeister-app",
-  "elements": [
-    {
-      "id": "bar-1",
-      "type": "bar",
-      "x": 100,
-      "y": 200,
-      "width": 50,
-      "height": 100,
-      "chartData": {
-        "label": "Revenue",
-        "value": 50,
-        "type": "positive",
-        "color": "#4CAF50"
-      }
-    }
-  ],
-  "appState": {
-    "chartVisual": {
-      "title": "My Chart",
-      "showTitle": true
-    }
-  },
-  "files": {}
+// Validate a chartmeister file
+const result = validate(file);
+if (!result.valid) {
+  console.error(result.errors);
 }
+
+// Load the schema directly (Node >= 18)
+import schemaJson from "chartmeister/chartmeister-schema.json" assert { type: "json" };
 ```
 
-For complete documentation, see:
-- [Getting Started Guide](./docs/getting-started.md)
-- [Schema Documentation](./README-schema.md)
-- [JSON Schema](./chartmeister-schema.json)
+## Schema v6 highlights
 
-## Contributing
+- Font size overrides for value labels, category labels, axis labels, and legend labels (typography harmonization)
+- `about` metadata block for provenance (title, description, authors, license, timestamps)
+- Legend layout controls (`legendMaxWidth`, icon shape overrides)
+- Clarified anchored totals and label docking for segmented bars
 
-We welcome contributions! Please:
+See the full schema in [`chartmeister-schema.json`](./chartmeister-schema.json).
 
-1. Fork this repository
-2. Add your chart JSON files
-3. Submit a pull request
+## Examples
+
+- [`examples/default.chartmeister`](./examples/default.chartmeister) – baseline waterfall chart
+- [`examples/openai.chartmeister`](./examples/openai.chartmeister) – OpenAI SWE-bench chart
+
+Open the Chartmeister app, import one of the example files, and iterate from there.
+
+## Development
+
+```bash
+npm install
+npm run build
+```
+
+Building requires Node.js 18+ and produces CommonJS + ESM bundles in `dist/`.
 
 ## License
 
-MIT License - see LICENSE file for details.
+MIT License – see [LICENSE](./LICENSE).

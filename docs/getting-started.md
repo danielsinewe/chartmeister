@@ -22,22 +22,19 @@ npm install chartmeister
 ### 2. Validate Your Files
 
 ```bash
-# Validate all chart files
-npm run validate:all
-
-# Validate specific files
-npx ajv validate -s chartmeister-schema.json -d your-file.chartmeister
+# Validate a file with ajv-cli
+npx ajv-cli validate -s chartmeister-schema.json -d your-file.chartmeister
 ```
 
 ### 3. Use in Your Application
 
-```javascript
-const schema = require('chartmeister/chartmeister-schema.json');
+```ts
+import { schema, validate } from "chartmeister";
 
-// Validate a chartmeister file
-const ajv = new Ajv();
-const validate = ajv.compile(schema);
-const isValid = validate(yourChartData);
+const { valid, errors } = validate(yourChartData);
+if (!valid) {
+  console.error(errors);
+}
 ```
 
 ## File Structure
@@ -46,7 +43,7 @@ A basic `.chartmeister` file looks like this:
 
 ```json
 {
-  "version": 2,
+  "version": 6,
   "type": "chartmeister",
   "source": "chartmeister-app",
   "elements": [
@@ -57,15 +54,23 @@ A basic `.chartmeister` file looks like this:
       "y": 0,
       "width": 100,
       "height": 40,
-      "label": "My Bar",
-      "value": 100,
-      "color": "#2f5f98"
+      "strokeColor": "transparent",
+      "backgroundColor": "#2f5f98",
+      "strokeWidth": 0,
+      "locked": false,
+      "chartData": {
+        "label": "My Bar",
+        "value": 100,
+        "type": "positive",
+        "showValueLabel": true,
+        "showCategoryLabel": true
+      }
     }
   ],
-  "title": {
-    "text": "My Chart",
-    "subtitle": "Chart Description"
-  }
+  "appState": {
+    "chartVisual": {}
+  },
+  "files": {}
 }
 ```
 
@@ -75,7 +80,7 @@ A basic `.chartmeister` file looks like this:
 
 ```json
 {
-  "version": 2,
+  "version": 6,
   "type": "chartmeister",
   "source": "chartmeister-app",
   "elements": [
@@ -86,9 +91,16 @@ A basic `.chartmeister` file looks like this:
       "y": 0,
       "width": 100,
       "height": 40,
-      "label": "Start",
-      "value": 1000,
-      "color": "#2f5f98"
+      "strokeColor": "transparent",
+      "strokeWidth": 0,
+      "locked": false,
+      "chartData": {
+        "label": "Start",
+        "value": 1000,
+        "type": "start",
+        "showValueLabel": true,
+        "showCategoryLabel": true
+      }
     },
     {
       "id": "revenue",
@@ -97,9 +109,17 @@ A basic `.chartmeister` file looks like this:
       "y": 0,
       "width": 100,
       "height": 40,
-      "label": "Revenue",
-      "value": 500,
-      "color": "#2d8bba"
+      "strokeColor": "transparent",
+      "strokeWidth": 0,
+      "locked": false,
+      "chartData": {
+        "label": "Revenue",
+        "value": 500,
+        "type": "positive",
+        "showValueLabel": true,
+        "showCategoryLabel": true,
+        "color": "#2d8bba"
+      }
     },
     {
       "id": "costs",
@@ -108,11 +128,23 @@ A basic `.chartmeister` file looks like this:
       "y": 0,
       "width": 100,
       "height": 40,
-      "label": "Costs",
-      "value": -200,
-      "color": "#41b8d5"
+      "strokeColor": "transparent",
+      "strokeWidth": 0,
+      "locked": false,
+      "chartData": {
+        "label": "Costs",
+        "value": -200,
+        "type": "negative",
+        "showValueLabel": true,
+        "showCategoryLabel": true,
+        "color": "#41b8d5"
+      }
     }
-  ]
+  ],
+  "appState": {
+    "chartVisual": {}
+  },
+  "files": {}
 }
 ```
 
@@ -120,7 +152,7 @@ A basic `.chartmeister` file looks like this:
 
 ```json
 {
-  "version": 2,
+  "version": 6,
   "type": "chartmeister",
   "source": "chartmeister-app",
   "elements": [
@@ -131,23 +163,36 @@ A basic `.chartmeister` file looks like this:
       "y": 0,
       "width": 200,
       "height": 60,
-      "label": "Performance",
-      "value": 100,
-      "backgroundColor": "#ffffff",
-      "segments": [
-        {
-          "label": "With thinking",
-          "value": 60,
-          "color": "#2f5f98"
-        },
-        {
-          "label": "Without thinking",
-          "value": 40,
-          "color": "#2d8bba"
-        }
-      ]
+      "strokeColor": "transparent",
+      "strokeWidth": 0,
+      "locked": false,
+      "chartData": {
+        "label": "Performance",
+        "value": 100,
+        "type": "positive",
+        "segments": [
+          {
+            "id": "seg-1",
+            "label": "With thinking",
+            "value": 60,
+            "color": "#2f5f98",
+            "showValueLabel": true
+          },
+          {
+            "id": "seg-2",
+            "label": "Without thinking",
+            "value": 40,
+            "color": "#2d8bba",
+            "showValueLabel": true
+          }
+        ]
+      }
     }
-  ]
+  ],
+  "appState": {
+    "chartVisual": {}
+  },
+  "files": {}
 }
 ```
 
@@ -186,7 +231,7 @@ Always include version information:
 
 ```json
 {
-  "version": 2,
+  "version": 6,
   "type": "chartmeister",
   "source": "chartmeister-app"
 }

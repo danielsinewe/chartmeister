@@ -12,10 +12,11 @@ npm install chartmeister
 
 ### Basic Validation
 
-```javascript
-const ajv = require('ajv');
-const schema = require('chartmeister/chartmeister-schema.json');
+```ts
+import Ajv from "ajv";
+import schema from "chartmeister/chartmeister-schema.json" assert { type: "json" };
 
+const ajv = new Ajv({ allErrors: true, strict: false });
 const validate = ajv.compile(schema);
 const isValid = validate(yourChartData);
 
@@ -28,10 +29,10 @@ if (!isValid) {
 
 ```bash
 # Validate a single file
-npx ajv validate -s chartmeister-schema.json -d your-chart.json
+npx ajv-cli validate -s chartmeister-schema.json -d your-chart.json
 
 # Validate multiple files
-npx ajv validate -s chartmeister-schema.json -d charts/**/*.json
+npx ajv-cli validate -s chartmeister-schema.json -d "examples/**/*.chartmeister"
 ```
 
 ## Schema Structure
@@ -41,7 +42,7 @@ npx ajv validate -s chartmeister-schema.json -d charts/**/*.json
 | Property | Type | Required | Description |
 |----------|------|----------|-------------|
 | `type` | string | ✅ | Must be "chartmeister" |
-| `version` | integer | ✅ | Schema version (currently 3) |
+| `version` | integer | ✅ | Schema version (currently 6) |
 | `source` | string | ✅ | Must be "chartmeister-app" |
 | `elements` | array | ✅ | Chart elements |
 | `appState` | object | ✅ | Application state |

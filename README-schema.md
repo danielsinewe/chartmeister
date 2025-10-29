@@ -1,6 +1,6 @@
 # Chartmeister JSON Schema
 
-This repository contains the official JSON schema for `.chartmeister` files, ensuring consistency and validation across all Chartmeister applications.
+This repository contains the official JSON schema for `.chartmeister` files, ensuring consistency and validation across all Chartmeister applications and integrations.
 
 ## Schema Location
 
@@ -19,10 +19,10 @@ You can validate `.chartmeister` files against this schema using any JSON Schema
 npx ajv-cli validate -s chartmeister-schema.json -d your-file.chartmeister
 
 # Using ajv in Node.js
-import Ajv from 'ajv';
-import schema from './chartmeister-schema.json';
+import Ajv from "ajv";
+import schema from "./chartmeister-schema.json" assert { type: "json" };
 
-const ajv = new Ajv();
+const ajv = new Ajv({ allErrors: true, strict: false });
 const validate = ajv.compile(schema);
 const valid = validate(yourChartmeisterData);
 ```
@@ -36,7 +36,7 @@ Most modern IDEs support JSON Schema validation. To enable it:
    {
      "$schema": "https://github.com/danielsinewe/chartmeister/chartmeister-schema.json",
      "type": "chartmeister",
-     "version": 2,
+     "version": 6,
      ...
    }
    ```
@@ -49,14 +49,12 @@ Most modern IDEs support JSON Schema validation. To enable it:
 
 ### Programmatic Usage
 
-```typescript
-import { validateChartmeisterFile } from '@chartmeister/validation';
+```ts
+import { validate } from "chartmeister";
 
-const result = validateChartmeisterFile(chartmeisterData);
-if (result.valid) {
-  console.log('Valid chartmeister file');
-} else {
-  console.error('Validation errors:', result.errors);
+const result = validate(chartmeisterData);
+if (!result.valid) {
+  console.error("Validation errors", result.errors);
 }
 ```
 
@@ -68,10 +66,14 @@ The schema follows semantic versioning:
 - **Minor version changes**: New optional properties
 - **Patch version changes**: Documentation updates, bug fixes
 
-### Current Version: 2
+### Current Version: 6
 
+- **Version 6**: Typography harmonization (font size overrides for labels & legend)
+- **Version 5**: Metadata block (`about`) and legend typography controls
+- **Version 4**: Value label docking & anchored totals behavior
+- **Version 3**: Total bar baseline handling fixes
+- **Version 2**: Segmented bar color handling fixes
 - **Version 1**: Initial format with basic chart support
-- **Version 2**: Enhanced format with improved color handling for segmented bars
 
 ## Schema Structure
 
@@ -97,4 +99,4 @@ When making changes to the schema:
 
 - [Chartmeister Documentation](https://github.com/danielsinewe/chartmeister)
 - [JSON Schema Specification](https://json-schema.org/)
-- [Chartmeister Format Guide](https://github.com/danielsinewe/chartmeister/docs/json-schema.md)
+- [Getting Started Guide](./docs/getting-started.md)

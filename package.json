@@ -1,14 +1,18 @@
 {
   "name": "chartmeister",
-  "version": "2.2.0",
-  "description": "Open source library for the .chartmeister file format - a JSON-based standard for saving and loading chart data and visual configurations",
-  "main": "chartmeister-schema.json",
+  "version": "6.0.0",
+  "description": "Chartmeister schema v6, examples, and lightweight utilities (validate, types) - includes font size overrides for typography harmonization",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "files": [
+    "dist",
     "chartmeister-schema.json",
-    "README-schema.md",
-    "LICENSE",
-    "charts/**/*",
-    "templates/**/*"
+    "examples",
+    "README.md",
+    "LICENSE"
   ],
   "keywords": [
     "chart",
@@ -20,7 +24,6 @@
     "data-format"
   ],
   "author": "Daniel Sinewe <daniel@chartmeister.ai>",
-  "license": "MIT",
   "homepage": "https://chartmeister.ai",
   "repository": {
     "type": "git",
@@ -33,22 +36,22 @@
     "type": "github",
     "url": "https://github.com/sponsors/danielsinewe"
   },
-  "engines": {
-    "node": ">=18.0.0"
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    },
+    "./chartmeister-schema.json": "./chartmeister-schema.json",
+    "./examples/*": "./examples/*"
   },
   "scripts": {
-    "validate": "ajv validate -s chartmeister-schema.json -d 'charts/**/*.json' --strict=false",
-    "validate:all": "ajv validate -s chartmeister-schema.json -d 'charts/**/*.json' --strict=false && ajv validate -s chartmeister-schema.json -d 'templates/**/*.json' --strict=false",
-    "test": "npm run validate:all",
-    "prepublishOnly": "npm run validate:all",
-    "setup": "bash scripts/setup-gh.sh",
-    "release": "node scripts/release.js",
-    "release:major": "node scripts/release.js major",
-    "release:minor": "node scripts/release.js minor",
-    "release:patch": "node scripts/release.js patch"
+    "build": "tsup src/index.ts --dts --format cjs,esm --sourcemap",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "ajv-cli": "^5.0.0",
-    "jsonschema": "^1.5.0"
+    "ajv": "^8.12.0",
+    "tsup": "^8.0.1",
+    "typescript": "^5.4.0"
   }
 }

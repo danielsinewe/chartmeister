@@ -97,9 +97,6 @@
                       "items": {
                         "type": "object",
                         "properties": {
-                          "id": {
-                            "type": "string"
-                          },
                           "label": {
                             "type": "string"
                           },
@@ -110,7 +107,7 @@
                             "type": "string"
                           }
                         },
-                        "required": ["id", "label", "value", "color"],
+                        "required": ["label", "value", "color"],
                         "additionalProperties": false
                       }
                     }
